@@ -41,3 +41,6 @@ L'outil nous faconne
 symphony quintescence de la phenomenologie
 
 Creation d'un nouveau concept central. Grille de lecture stieglerienne.
+
+exosommatisation produite par le marché et par le big data et par l'IA.
+
