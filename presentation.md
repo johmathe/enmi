@@ -38,4 +38,6 @@ Leroi-Gourhan proposes that tool use, far from being the result of expanded inte
 
 L'outil nous faconne
 
+symphony quintescence de la phenomenologie
+
 Creation d'un nouveau concept central. Grille de lecture stieglerienne.
