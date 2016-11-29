@@ -5,12 +5,9 @@ import mpl_toolkits.mplot3d
 import matplotlib.pyplot as plt
 import numpy as np
 
-font = {'family': 'normal',
-        'weight': 'medium',
-        'size': 6,
-        'family': 'sans-serif'}
+from matplotlib import rc
+rc('text', usetex=True)
 alpha = {'alpha': 1.0}
-matplotlib.rc('font', **font)
 matplotlib.rc('grid', **alpha)
 
 
@@ -43,3 +40,25 @@ ax.set_zlim(0, 2)
 
 fig.colorbar(surf, shrink=0.5, aspect=5)
 fig.savefig('imgs/convex.pdf')
+
+
+font = {'family': 'normal',
+        'weight': 'medium',
+        'size': 10, }
+alpha = {'alpha': 1.0}
+matplotlib.rc('font', **font)
+matplotlib.rc('grid', **alpha)
+
+
+N = 1000
+x = np.linspace(-1, 1, N)
+x1 = np.zeros(N)
+y = np.maximum(x, x1)
+plt.figure(figsize=(5,5))
+plt.plot(x, y)
+plt.xlim(-1, 1)
+plt.ylim(-1, 1)
+plt.xlabel('x')
+plt.ylabel('f(x)')
+plt.grid()
+plt.savefig('imgs/non_linear.pdf')

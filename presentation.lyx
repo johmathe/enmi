@@ -5,6 +5,9 @@
 \save_transient_properties true
 \origin unavailable
 \textclass article
+\begin_preamble
+\usepackage{tikz}
+\end_preamble
 \use_default_options true
 \maintain_unincluded_children false
 \language french
@@ -81,11 +84,31 @@ Johan Mathe johmathe@baylabs.io
 \end_layout
 
 \begin_layout Standard
-Remerciements
+Remerciements pour etre aussi nombreux et nombreux
 \end_layout
 
 \begin_layout Standard
 Je tiens a remercier Bernard Stiegler, Raphaele
+\end_layout
+
+\begin_layout Standard
+Presentations georgescu roden
+\end_layout
+
+\begin_layout Standard
+Je vous precise simplement que je ne travaille pas exclusivement
+\end_layout
+
+\begin_layout Standard
+Ce sur quoi je travaille
+\end_layout
+
+\begin_layout Standard
+20045
+\end_layout
+
+\begin_layout Standard
+11 ans
 \end_layout
 
 \begin_layout Section
@@ -98,6 +121,303 @@ Dans son film 2001, a space odyssey, kubrick nous fait voyager
 
 \begin_layout Section
 Réseaux neuronaux artificiels profonds
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+def
+\backslash
+layersep{2.5cm}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}[shorten >=1pt,->,draw=black!50, node distance=
+\backslash
+layersep]  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikzstyle{every pin edge}=[<-,shorten <=1pt]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikzstyle{neuron}=[circle,fill=black!25,minimum size=17pt,inner sep=0pt]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikzstyle{input neuron}=[neuron, fill=green!50]    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikzstyle{output neuron}=[neuron, fill=red!50]    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikzstyle{hidden neuron}=[neuron, fill=blue!50]    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikzstyle{annot} = [text width=4em, text centered]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+foreach 
+\backslash
+name / 
+\backslash
+y in {1,...,4}    
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+node[input neuron, pin=left:Entrée 
+\backslash
+#
+\backslash
+y] (I-
+\backslash
+name) at (0,-
+\backslash
+y) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+foreach 
+\backslash
+name / 
+\backslash
+y in {1,...,5}        
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\backslash
+path[yshift=0.5cm]            
+\end_layout
+
+\begin_layout Plain Layout
+
+    node[hidden neuron] (H1-
+\backslash
+name) at (
+\backslash
+layersep,-
+\backslash
+y cm) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+foreach 
+\backslash
+name / 
+\backslash
+y in {1,...,5}        
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\backslash
+path[yshift=0.5cm]            
+\end_layout
+
+\begin_layout Plain Layout
+
+    node[hidden neuron] (H2-
+\backslash
+name) at (5cm,-
+\backslash
+y cm) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+foreach 
+\backslash
+source in {1,...,4}         
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\backslash
+foreach 
+\backslash
+dest in {1,...,5}  
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+path (I-
+\backslash
+source) edge (H1-
+\backslash
+dest);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+node[output neuron,pin={[pin edge={->}]right:Sortie}, right of=H2-3] (O)
+ {};
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\backslash
+foreach 
+\backslash
+source in {1,...,5}         
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+foreach 
+\backslash
+dest in {1,...,5}  
+\end_layout
+
+\begin_layout Plain Layout
+
+     
+\backslash
+path (H1-
+\backslash
+source) edge (H2-
+\backslash
+dest);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+foreach 
+\backslash
+source in {1,...,5}      
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\backslash
+path (H2-
+\backslash
+source) edge (O);
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+node[annot,above of=H2-1, node distance=1cm] (hl) {Couche cachée N};   
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+node[annot,above of=H1-1, node distance=1cm] (hl) {Couche cachée 1};   
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+node[annot,left of=hl] {Couche d'entrée};  
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+node[annot,right of=H2-1] {Couche de sortie}; 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -137,6 +457,52 @@ Optimisation
 \mbox{subject to} & f_{i}(x)\le b_{i}
 \end{eqnarray}
 
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+e would like to quantify information in a way that formalizes this intuition.Spec
+iﬁcally,•Likely events should have low information content, and in the extreme
+ case,events that are guaranteed to happen should have no information contentwha
+tsoever.• Less likely events should have higher information content.•Independent
+ events should have additive information.
+ For example, ﬁndingout that a tossed coin has come up as heads twice should
+ convey twice asmuch information as ﬁnding out that a tossed coin has come
+ up as headsonce
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+I(x)=-\log P(x)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Self-information deals only with a single outcome.
+ We can quantify the amountof uncertainty in an entire probability distribution
+ using the Shannon entropy:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+H(x)\mathbb{E}()
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $ $
 \end_inset
 
 
@@ -244,11 +610,47 @@ not talking about
 \end_layout
 
 \begin_layout Section
+Opacité, Explicabilité
+\end_layout
+
+\begin_layout Standard
+Transhumanisme
+\end_layout
+
+\begin_layout Standard
+exosommatisation
+\end_layout
+
+\begin_layout Section
 CraftPunk
 \end_layout
 
 \begin_layout Standard
 Softmax
+\end_layout
+
+\begin_layout Standard
+Le craft revient a la contribution
+\end_layout
+
+\begin_layout Standard
+mentors
+\end_layout
+
+\begin_layout Standard
+immitation d'un modele scientifique pour faire science
+\end_layout
+
+\begin_layout Standard
+exosommatisation pousse 
+\end_layout
+
+\begin_layout Standard
+remerciements
+\end_layout
+
+\begin_layout Standard
+pas d'accord avec les energies solaires
 \end_layout
 
 \end_body
