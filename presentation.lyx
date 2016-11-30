@@ -7,6 +7,7 @@
 \textclass article
 \begin_preamble
 \usepackage{tikz}
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
 \end_preamble
 \use_default_options true
 \maintain_unincluded_children false
@@ -127,6 +128,7 @@ Baylabs
 Baylabs, Inc est une startup qui a pour mission d'améliorer la qualité,
  valeur et l'acces a l'imagerie médicale.
  Le premier produit sur lequel l'équipe travaille est un systeme d'analyse
+ cardiaque basé sur l'utilisation de l'ultrason.
 \end_layout
 
 \begin_layout Section
@@ -511,31 +513,41 @@ end{tikzpicture}
 
 \end_layout
 
-\begin_layout Subsection
-Entropie Croisée
-\end_layout
-
 \begin_layout Standard
-\begin_inset Formula 
-\begin{equation}
-H_{y'}(y)=\sum_{i}y_{i}'\log(y_{i})
-\end{equation}
-
-\end_inset
-
-
+TODO: Example with two pathologies
 \end_layout
 
 \begin_layout Subsection
-Optimisation
+L'apprentissage
+\end_layout
+
+\begin_layout Standard
+L'apprentissage est un processus souvent itératif qui permet d'estimer une
+ fonction de type réseau neuronal grace a une grande quantité de données
+ d'entrée.
+ Dans notre cas de classification d'images pathologiques ou non, nous aurons
+ un ensemble de tuples 
+\begin_inset Formula $(X_{i},y_{i})$
+\end_inset
+
+ qui correspondront tout simplement aux images et a leurs labels, c'est
+ a dire s'il s'agit d'un cas pathologique ou non.
+\end_layout
+
+\begin_layout Standard
+D'un point de vue mathématique on peut voir le probleme de l'apprentissage
+ comme un probleme d'optimisation.
+ Il s'agit de minimiser la somme des erreur entre les prédictions de notre
+ réseau de neurones et les données labellisées par des experts (dans notre
+ cas les experts du monde médical).
+ Nous nous retrouvons donc avec la forme suivante:
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
-\begin{eqnarray}
-\mbox{minimize} & f_{0}(x)\\
-\mbox{subject to} & f_{i}(x)\le b_{i}
-\end{eqnarray}
+\begin{eqnarray*}
+\mbox{\mbox{minimiser}} & J(\boldsymbol{\theta,y,X})=\sum_{i=1}^{N}\lVert y_{i}-f(X_{i};\boldsymbol{\theta}))\rVert^{2}
+\end{eqnarray*}
 
 \end_inset
 
@@ -543,49 +555,43 @@ Optimisation
 \end_layout
 
 \begin_layout Standard
-e would like to quantify information in a way that formalizes this intuition.Spec
-iﬁcally, Likely events should have low information content, and in the extreme
- case,events that are guaranteed to happen should have no information contentwha
-tsoever.
- Less likely events should have higher information content.
- Independent events should have additive information.
- For example, ﬁndingout that a tossed coin has come up as heads twice should
- convey twice asmuch information as ﬁnding out that a tossed coin has come
- up as headsonce
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-I(x)=-\log P(x)
-\]
-
+La minimisation de cette valeur se fait par l'algorithme du gradient (aussi
+ appelé gradient descent, steepest descent).
+ L'idée relativement simple.
+ On commence par choisir un point aléatoire 
+\begin_inset Formula $\boldsymbol{\theta}_{0}$
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
-Self-information deals only with a single outcome.
- We can quantify the amountof uncertainty in an entire probability distribution
- using the Shannon entropy:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-H(x)\mathbb{=E}_{x\sim P}[I(x)]=-\mathbb{E}_{X\sim P}[\log(x)]
-\]
-
+, puis on évalue la valeur du gradient 
+\begin_inset Formula $\nabla_{\theta}J(\boldsymbol{\theta})$
 \end_inset
 
+ en ce point.
+ Ce gradient représente un hyperplan dans l'espace a 
+\begin_inset Formula $m$
+\end_inset
 
+ dimensions des parametres de notre fonction 
+\begin_inset Formula $f(x;\boldsymbol{\theta})$
+\end_inset
+
+.
+ On fait ensuite une mise a jour de notre parametre qui devient 
+\begin_inset Formula $\boldsymbol{\theta}_{1}$
+\end_inset
+
+ en lui ajoutant une partie de ce gradient, pondéré par un taux d'apprentissage
+ 
+\begin_inset Formula $\alpha$
+\end_inset
+
+:
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\sigma(x)=\max(0,x)
+\boldsymbol{\theta}[k+1]=\boldsymbol{\theta}[k]+\alpha\nabla_{\boldsymbol{\theta}}J(\boldsymbol{\theta,y,X})
 \]
 
 \end_inset
@@ -595,23 +601,13 @@ H(x)\mathbb{=E}_{x\sim P}[I(x)]=-\mathbb{E}_{X\sim P}[\log(x)]
 
 \begin_layout Standard
 \begin_inset Graphics
-	filename imgs/non_linear.pdf
-	display false
+	filename imgs/gradient_descent.pdf
 	width 100col%
 	height 100col%
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-Je ne vais pas vous parler de propagation arriere car je ne considere pas
- que ceci soit central et necessaire a la comprehension des reseaux neuronaux.
-\end_layout
-
-\begin_layout Standard
-Bio-inspirés, mon cul.
 \end_layout
 
 \begin_layout Subsection
@@ -670,6 +666,119 @@ f\left(tx+(1-t)y\right)\leq t\,f(x)+(1-t)\,f(y)
  
 \end_layout
 
+\begin_layout Subsection
+Entropie Croisée
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+H_{y'}(y)=\sum_{i}y_{i}'\log(y_{i})
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Optimisation
+\end_layout
+
+\begin_layout Standard
+On veut quantifier l'information d'une maniere qui formalise une forme d'intuiti
+on.
+ 
+\end_layout
+
+\begin_layout Itemize
+Les evenements qui sont fortement probable devraient avoir un contenu en
+ information faible, et les evements qui sont garantis devraient avoir un
+ contenu informationel proche de zéro.
+ Un exemple typique est que le soleil se leverea demain.
+ Cette phrase a un contenu informationel faible si l'on connait l'histoire
+ des levers et couchers de soleils depuis le début de l'histoire de l'humanité.
+\end_layout
+
+\begin_layout Itemize
+Les evenements peu probables devraient avoir un contenu informationel élevé.
+ Les évemenents independants devraient avoir une information additive.
+ Par exemple.
+ se rendre compte que lors d'un lancer de dés est tombé sur pile deux fois
+\end_layout
+
+\begin_layout Standard
+Shannon a théorisé dans son papier 
+\series bold
+A Mathematical Theory of Communication 
+\series default
+l'entropie comme suit: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+I(x)=-\log P(x)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Entropy de gibbs, entropy de von neumann
+\end_layout
+
+\begin_layout Standard
+Self-information deals only with a single outcome.
+ We can quantify the amountof uncertainty in an entire probability distribution
+ using the Shannon entropy:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+H(x)\mathbb{=E}_{x\sim P}[I(x)]=-\mathbb{E}_{X\sim P}[\log(x)]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\sigma(x)=\max(0,x)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename imgs/non_linear.pdf
+	display false
+	width 100col%
+	height 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Je ne vais pas vous parler de propagation arriere car je ne considere pas
+ que ceci soit central et necessaire a la comprehension des reseaux neuronaux.
+\end_layout
+
+\begin_layout Standard
+Bio-inspirés, mon cul.
+\end_layout
+
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
@@ -720,11 +829,171 @@ Opacité, Explicabilité
 \end_layout
 
 \begin_layout Standard
+Une des plus grandes problématiques posées aujourd'hui par les réseaux de
+ neurones profonds est liée a ce qu'on peut définir comme l'opacité et le
+ manque d'explicabilitié de ceux-cis.
+\end_layout
+
+\begin_layout Standard
 Transhumanisme
 \end_layout
 
 \begin_layout Standard
 exosommatisation
+\end_layout
+
+\begin_layout Standard
+Opacité
+\end_layout
+
+\begin_layout Standard
+Pour diminuer l'opacité de ce type d'algorithmes, nous nous penchons sur
+ une technique relativement ancienne, mais qui a été re popularisée récemment
+ grace aux travaux de Erhan et al 2009 TODO Citations.
+ Il s'agit simplement de l'operation inverse de l'apprentissage.
+ Nous avons vu que l'apprentissage consistait simplement en une optimisation
+ d'une fonction d'objectif visant a minimiser une erreur de prédiction,
+ ou encore une entropie croisée entre une distribution attendue et une distribut
+ion produite par le réseau de neurones.
+\end_layout
+
+\begin_layout Standard
+Ici nous allons maximiser une activation en considerant la fonction inverse
+ de notre reseau de neurones:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+h^{*}(\boldsymbol{X},\boldsymbol{\theta})=f^{*-1}(\boldsymbol{X},\boldsymbol{\theta})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Nous solvons donc le probleme d'optimisation suivant:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\boldsymbol{X^{*}}=\mbox{argmax}h(\boldsymbol{\theta},\boldsymbol{X})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+TODO review this
+\end_layout
+
+\begin_layout Standard
+Nous pouvons reutiliser la méthode de l'algorithme du gradient
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Goodfellow-et-al-2016-Book"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset citation
+LatexCommand cite
+key "visualization_techreport"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset citation
+LatexCommand cite
+key "yosinski-2015-ICML-DL-understanding-neural-networks"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Resultats
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename imgs/rhd_positive.jpg
+	display false
+	width 100col%
+	height 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename imgs/opacite1.jpg
+	display false
+	width 100col%
+	height 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename imgs/opacite2.jpg
+	display false
+	width 100col%
+	height 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\lang english
+Opacité
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -760,16 +1029,10 @@ pas d'accord avec les energies solaires
 \end_layout
 
 \begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-@unpublished{Goodfellow-et-al-2016-Book,     title={Deep Learning},    
- author={Ian Goodfellow and Yoshua Bengio and Aaron Courville},     note={Book
- in preparation for MIT Press},     url={http://www.deeplearningbook.org},
-     year={2016} } 
-\end_layout
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "dl"
+options "plain"
 
 \end_inset
 

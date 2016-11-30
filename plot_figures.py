@@ -62,3 +62,51 @@ plt.xlabel('x')
 plt.ylabel('f(x)')
 plt.grid()
 plt.savefig('imgs/non_linear.pdf')
+
+
+font = {'family' : 'normal',
+        'weight' : 'medium',
+        'size'   : 10,
+       'family': 'sans-serif'}
+alpha = {'alpha': 1.0}
+matplotlib.rc('font', **font)
+matplotlib.rc('grid', **alpha)
+N = 1000
+x = np.linspace(-10, 10, N)
+y = x**2
+plt.figure(figsize=(5,5))
+
+start = 15
+lr = 0.3
+steps = 3
+
+def f(x):
+    return x*x
+
+def dx(x):
+    return 2*x
+theta = start
+thetas = []
+results = []
+thetas.append(theta)
+results.append(f(theta))
+plt.hold(True)
+
+def plot_line(plt, a, x):
+    x1 = np.linspace(x-3, x+3, 2)
+    y1 = 2*x*x1 - a
+    plt.plot(x1, y1, 'r-')
+
+for s in range(steps):
+    theta = theta - lr*dx(theta)
+    thetas.append(theta)
+    results.append(f(theta))
+    plot_line(plt, results[-1], thetas[-1])
+
+plt.plot(x, y)
+plt.xlim(-11, 11)
+plt.ylim(-10, 100)
+plt.xlabel('$x$')
+plt.ylabel('$f(x) = x^2$')
+plt.grid()
+plt.savefig('imgs/gradient_descent.pdf')
