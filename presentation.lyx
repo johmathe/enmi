@@ -120,7 +120,72 @@ Dans son film 2001, a space odyssey, kubrick nous fait voyager
 \end_layout
 
 \begin_layout Section
+Baylabs
+\end_layout
+
+\begin_layout Standard
+Baylabs, Inc est une startup qui a pour mission d'améliorer la qualité,
+ valeur et l'acces a l'imagerie médicale.
+ Le premier produit sur lequel l'équipe travaille est un systeme d'analyse
+\end_layout
+
+\begin_layout Section
 Réseaux neuronaux artificiels profonds
+\end_layout
+
+\begin_layout Standard
+Le but d'un réseau neuronal est d'approximer une fonction 
+\begin_inset Formula $f^{*}$
+\end_inset
+
+.
+ Un bon exemple une fonction de classification d'image 
+\begin_inset Formula $y=f^{*}(x)$
+\end_inset
+
+ qui associe une classe de donnée a une catégorie y.
+ Le réseau neuronal définit une application 
+\begin_inset Formula $\boldsymbol{y}=f(\boldsymbol{x};\boldsymbol{W})$
+\end_inset
+
+ On ne mentionnera pas ici des réseau neuronaux récurrents.
+ Ces modeles sont la base d'énormément d'applications.
+ La définition de ces modeles est extremement symple.
+ En effet il s'agit généralement de la composition de fonctions non-linéaires
+ de la forme suivante:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+f(\boldsymbol{x})=f^{(n)}(\ldots f^{(i)}(\ldots f^{(1)}(\boldsymbol{x})))
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Ces structures chainées peuvent etre vues comme un systeme multi couches.
+ En effet la fonction 
+\begin_inset Formula $f^{(1)}$
+\end_inset
+
+ représentera la premiere couche du réseau, jusqu'a 
+\begin_inset Formula $f^{(n)}$
+\end_inset
+
+la derniere couche 
+\begin_inset Formula $n$
+\end_inset
+
+ Le nombre de couche est appelé la 
+\series bold
+profondeur
+\series default
+ du réseau.
+ Un modele graphique representant un reseau a deux couches:
 \end_layout
 
 \begin_layout Standard
@@ -384,14 +449,16 @@ source) edge (O);
 
  
 \backslash
-node[annot,above of=H2-1, node distance=1cm] (hl) {Couche cachée N};   
+node[annot,above of=H2-1, node distance=1cm] (hl) {Couche cachée~2 $f^{(2)}$};
+   
 \end_layout
 
 \begin_layout Plain Layout
 
  
 \backslash
-node[annot,above of=H1-1, node distance=1cm] (hl) {Couche cachée 1};   
+node[annot,above of=H1-1, node distance=1cm] (hl) {Couche cachée~1 $f^{(1)}$};
+   
 \end_layout
 
 \begin_layout Plain Layout
@@ -431,6 +498,19 @@ end{tikzpicture}
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset Graphics
+	filename imgs/rhd_positive.jpg
+	display false
+	width 100col%
+	height 100col%
+	keepAspectRatio
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
 Entropie Croisée
 \end_layout
@@ -464,10 +544,11 @@ Optimisation
 
 \begin_layout Standard
 e would like to quantify information in a way that formalizes this intuition.Spec
-iﬁcally,•Likely events should have low information content, and in the extreme
+iﬁcally, Likely events should have low information content, and in the extreme
  case,events that are guaranteed to happen should have no information contentwha
-tsoever.• Less likely events should have higher information content.•Independent
- events should have additive information.
+tsoever.
+ Less likely events should have higher information content.
+ Independent events should have additive information.
  For example, ﬁndingout that a tossed coin has come up as heads twice should
  convey twice asmuch information as ﬁnding out that a tossed coin has come
  up as headsonce
@@ -493,7 +574,7 @@ Self-information deals only with a single outcome.
 \begin_layout Standard
 \begin_inset Formula 
 \[
-H(x)\mathbb{E}()
+H(x)\mathbb{=E}_{x\sim P}[I(x)]=-\mathbb{E}_{X\sim P}[\log(x)]
 \]
 
 \end_inset
@@ -502,10 +583,35 @@ H(x)\mathbb{E}()
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $ $
+\begin_inset Formula 
+\[
+\sigma(x)=\max(0,x)
+\]
+
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename imgs/non_linear.pdf
+	display false
+	width 100col%
+	height 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Je ne vais pas vous parler de propagation arriere car je ne considere pas
+ que ceci soit central et necessaire a la comprehension des reseaux neuronaux.
+\end_layout
+
+\begin_layout Standard
+Bio-inspirés, mon cul.
 \end_layout
 
 \begin_layout Subsection
@@ -651,6 +757,23 @@ remerciements
 
 \begin_layout Standard
 pas d'accord avec les energies solaires
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+@unpublished{Goodfellow-et-al-2016-Book,     title={Deep Learning},    
+ author={Ian Goodfellow and Yoshua Bengio and Aaron Courville},     note={Book
+ in preparation for MIT Press},     url={http://www.deeplearningbook.org},
+     year={2016} } 
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body
