@@ -25,7 +25,6 @@ surf = ax.plot_surface(
     linewidth=0.01)
 ax.set_zlim(-1.31, 1.31)
 
-fig.colorbar(surf, shrink=0.5, aspect=5)
 fig.savefig('imgs/non_convex.pdf')
 
 fig = plt.figure(figsize=(16, 10))
@@ -38,7 +37,6 @@ surf = ax.plot_surface(
     linewidth=0.01)
 ax.set_zlim(0, 2)
 
-fig.colorbar(surf, shrink=0.5, aspect=5)
 fig.savefig('imgs/convex.pdf')
 
 

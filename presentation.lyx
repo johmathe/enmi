@@ -245,7 +245,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Quote from Kubrick
+John utilisant le prototype EchoMD
 \end_layout
 
 \end_inset
@@ -298,6 +298,26 @@ key "Goodfellow-et-al-2016-Book"
 \[
 f(\boldsymbol{x})=f^{(n)}(\ldots f^{(i)}(\ldots f^{(1)}(\boldsymbol{x})))
 \]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Généralement, les fonctions f ont la forme suivante, avec 
+\begin_inset Formula $\sigma(x)$
+\end_inset
+
+ une fonction non linéaire comme par exemple l'unité linéaire rectifié (voir
+ figure ):
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+f^{(i)}(\boldsymbol{x})=\sigma(\boldsymbol{W}_{i}^{T}\boldsymbol{x}+\boldsymbol{b_{i}})
+\end{equation}
 
 \end_inset
 
@@ -626,107 +646,31 @@ end{tikzpicture}
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula 
-\begin{equation}
-\boldsymbol{H}=\sigma(\boldsymbol{W}^{T}\boldsymbol{X})
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
 status open
 
 \begin_layout Plain Layout
-\begin_inset Box Frameless
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "48text%"
-special "none"
-height "1in"
-height_special "totalheight"
-thickness "0.4pt"
-separation "3pt"
-shadowsize "4pt"
-framecolor "black"
-backgroundcolor "none"
-status open
-
-\begin_layout Plain Layout
 \begin_inset Graphics
-	filename imgs/rhd_positive.jpg
+	filename imgs/non_linear.pdf
 	display false
-	width 100col%
+	width 45col%
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Plain Layout
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Un cas pathologique de fievre rhumatique
-\end_layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:non-linear"
 
 \end_inset
 
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset space \hfill{}
-\end_inset
-
-
-\begin_inset Box Frameless
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "48text%"
-special "none"
-height "1in"
-height_special "totalheight"
-thickness "0.4pt"
-separation "3pt"
-shadowsize "4pt"
-framecolor "black"
-backgroundcolor "none"
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename imgs/coeur_sain.png
-	display false
-	width 100col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Un coeur sain
-\end_layout
-
+Une non-linéarité de type relu
+\begin_inset Formula $\sigma(x)=\max(0,x)$
 \end_inset
 
 
@@ -740,10 +684,6 @@ Un coeur sain
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-TODO: Example with two pathologies
 \end_layout
 
 \begin_layout Subsection
@@ -769,13 +709,40 @@ D'un point de vue mathématique on peut voir le probleme de l'apprentissage
  Il s'agit de minimiser la somme des erreur entre les prédictions de notre
  réseau de neurones et les données labellisées par des experts (dans notre
  cas les experts du monde médical).
- Nous nous retrouvons donc avec la forme suivante:
+ L'outil mathématique utilisé dans ce cas est une loss function TODO():
+ traduire loss.
+ Cette fonction a pour but d'augmenter quand l'erreur de prediction augmente,
+ et de diminuer le cas contraire.
+ 
+\end_layout
+
+\begin_layout Standard
+Un exemple classique d'une loss TODO translate est la distance euclidienne,
+ aussi appelée loss euclidienne.
+ Elle représente la distance euclidienne qui sépare 2 points dans un espace
+ donné.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+l(\hat{y},y)=\Vert\hat{y}-y\Vert_{2}=\sqrt{\frac{1}{n}\sum_{i=1}^{N}(\hat{y_{i}}-y_{i})^{2}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Dans notre cas cet espace est l'espace des parametres et nous retrouvons
+ donc avec la forme suivante:
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \begin{eqnarray*}
-\mbox{\mbox{minimiser}} & J(\boldsymbol{\theta,y,X})=\sum_{i=1}^{N}\lVert y_{i}-f(X_{i};\boldsymbol{\theta}))\rVert^{2}
+\mbox{\mbox{minimiser}} & J(\boldsymbol{\theta,y,X})=\sum_{i=1}^{N}\lVert y_{i}-f(X_{i};\boldsymbol{\theta}))\rVert_{2}^{2}
 \end{eqnarray*}
 
 \end_inset
@@ -829,11 +796,58 @@ La minimisation de cette valeur se fait par l'algorithme du gradient (aussi
 \end_layout
 
 \begin_layout Standard
+La figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "algo_illustr"
+
+\end_inset
+
+ illustre l'algorithme du gradient pour une fonction convexe quadratique.
+ Dans ce cas la le gradient devient simplement la dérivée de la fonction
+ en un point.
+ Les droites rouges illustrent les tangentes de la droite en chaque point
+ et montrent comment l'algorithme évolue.
+ Apres quelques itérations on considere un critere d'arret comme par exemple
+ le fait que la valeur du gradient soit proche d'une valeur arbitrairement
+ faible 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \begin_inset Graphics
 	filename imgs/gradient_descent.pdf
 	display false
-	width 100col%
-	height 100col%
+	width 50col%
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "algo_illustr"
+
+\end_inset
+
+Illustration de la méthode du gradient
+\end_layout
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -845,17 +859,32 @@ Convexité
 \end_layout
 
 \begin_layout Standard
-Il est important de mentionner 
-\end_layout
+Une des differences notables entre les algorithmes de type réseaux de neurones
+ profonds et les méthodes plus anciennes d'apprentissage supervisé comme
+ par exemple une SVM TODO citation SVM est la non-convexité du probleme.
+ Nous allons revenir quelques instants sur la définition de la convexité,
+ car celle ci est capitale pour la suite de cet exposé.
+ L'ensemble convexe est défini de sorte a ce que si l'on choisit deux points
+ 
+\begin_inset Formula $x,y$
+\end_inset
 
-\begin_layout Standard
-La définition d'un ensemble convexe est la suivante:
+ dans cet ensemble, tous les points formés par l'ensemble des barycentres
+ entre ces deux points appartiendront aussi a l'ensemble (voir equation
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:convex_set"
+
+\end_inset
+
+)
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-\forall x,y\in C\quad\forall t\in[0,1]\qquad tx+(1-t)y\in C
+\forall x,y\in C\quad\forall t\in[0,1]\qquad tx+(1-t)y\in C\label{eq:convex_set}
 \end{equation}
 
 \end_inset
@@ -864,13 +893,21 @@ La définition d'un ensemble convexe est la suivante:
 \end_layout
 
 \begin_layout Standard
-La définition d'une fonction convexe est la suivante
+La définition d'une fonction convexe est assez proche de celle de l'ensemble
+ convexe (voir équation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:convex_fn"
+
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-f\left(tx+(1-t)y\right)\leq t\,f(x)+(1-t)\,f(y)
+f\left(tx+(1-t)y\right)\leq t\,f(x)+(1-t)\,f(y)\label{eq:convex_fn}
 \end{equation}
 
 \end_inset
@@ -879,44 +916,139 @@ f\left(tx+(1-t)y\right)\leq t\,f(x)+(1-t)\,f(y)
 \end_layout
 
 \begin_layout Standard
-\begin_inset Graphics
-	filename imgs/non_convex.pdf
-	display false
-	width 100text%
-
-\end_inset
-
-
+Une caracteristique principale des fonctions convexes est qu'elle ne possede
+ qu'un seul maximum, celui ci étant donc de fait un maximum global.
+ Ceci implique donc des garanties importantes quant a la convergence de
+ notre fonction d'objectif.
+ Nous avons la garantie d'obtenir la solution au probleme d'optimisation.
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "48text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
 \begin_inset Graphics
 	filename imgs/convex.pdf
 	display false
-	width 100text%
+	width 100col%
 
 \end_inset
 
- 
+
 \end_layout
 
-\begin_layout Subsection
-Entropie Croisée
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Une fonction convexe de 
+\begin_inset Formula $\mathbb{R}^{2}\mapsto\mathbb{R}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "48text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename imgs/non_convex.pdf
+	display false
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Une fonction non convexe de 
+\begin_inset Formula $\mathbb{R}^{2}\mapsto\mathbb{R}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula 
-\begin{equation}
-H_{y'}(y)=\sum_{i}y_{i}'\log(y_{i})
-\end{equation}
-
-\end_inset
-
-
+Les réseaux neuronaux profonds etant composés d'une succession d'opérations
+ linéaires (convexes) et non-linéaires (non convexes), la composition de
+ fonctions non convexes est généralement une fonction non-convexe.
+ Ceci implique que dans le cas général, les solutions obtenues par des algorithm
+es de la famille des algorithmes du gradient ne nous donnent pas une garantie
+ sur l'optimalité et la globalité du résultat trouvé.
 \end_layout
 
 \begin_layout Subsection
-Optimisation
+Une nouvelle fonction d'objectif TODO(): traduire la minimisation de l'entropie
+ croisée
 \end_layout
 
 \begin_layout Standard
@@ -937,8 +1069,8 @@ Les evenements qui sont fortement probable devraient avoir un contenu en
 \begin_layout Itemize
 Les evenements peu probables devraient avoir un contenu informationel élevé.
  Les évemenents independants devraient avoir une information additive.
- Par exemple.
- se rendre compte que lors d'un lancer de dés est tombé sur pile deux fois
+ Par exemple, se rendre compte que lors d'un lancer de dés est tombé sur
+ pile deux fois
 \end_layout
 
 \begin_layout Standard
@@ -993,57 +1125,6 @@ H(x)\mathbb{=E}_{x\sim P}[I(x)]=-\mathbb{E}_{X\sim P}[\log(x)]
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename imgs/non_linear.pdf
-	display false
-	width 100col%
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Inspection/Destruction de HAL9000
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Je ne vais pas vous parler de propagation arriere car je ne considere pas
- que ceci soit central et necessaire a la comprehension des reseaux neuronaux.
-\end_layout
-
-\begin_layout Standard
-Bio-inspirés, mon cul.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\begin{equation}
-w[k]=w[k]-\eta\nabla Q(w[k])=w[k]-\eta\sum_{i=1}^{n}\nabla Q_{i}(w[k])
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 \begin_inset Formula 
 \[
 C=-\frac{1}{n}\sum_{x}[y\ln a+(1-y)\ln(1-a)]
@@ -1065,6 +1146,35 @@ C=-\frac{1}{n}\sum_{x}[y\ln a+(1-y)\ln(1-a)]
 
 \end_layout
 
+\begin_layout Subsection
+Entropie Croisée
+\end_layout
+
+\begin_layout Standard
+Shannon a théorisé l'entropie d'un point de vue informationel dans sa publicatio
+n de 1948, 
+\series bold
+A Mathematical Theory of Communication 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Shannon:1963:MTC:1102016"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+H_{y'}(y)=\sum_{i}y_{i}'\log(y_{i})
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 soft max
 \end_layout
@@ -1079,6 +1189,27 @@ not talking about
 
 \begin_layout Section
 Opacité, Explicabilité
+\end_layout
+
+\begin_layout Standard
+Je vais maintenant décrire des travaux qui sont liés a des axes de recherches
+ actifs et récents.
+ En particulier les problématiques d'explicabilité et d'opacité.
+ J'utilise ici la définition suivante de l'opacité d'un réseau de neurones
+ artificiel:
+\end_layout
+
+\begin_layout Standard
+Un réseau de neurone artificiel est dit opaque de par la nature non-convexe
+ du probleme d'apprentissage, nous n'avons aucune visibilité sur les performance
+s ni sur les criteres internes qui font que ce dernier perform (TODO) bien
+ ou mal TODO rephrase.
+\end_layout
+
+\begin_layout Standard
+L'explicabilité ici est définie comme une production d'information qui va
+ déterminer les criteres d'un signal d'entrée qui ont amené le réseau de
+ neurones a faire un choix plutot qu'un autre.
 \end_layout
 
 \begin_layout Subsection
@@ -1124,18 +1255,6 @@ Inspection/Destruction de HAL9000
 Une des plus grandes problématiques posées aujourd'hui par les réseaux de
  neurones profonds est liée a ce qu'on peut définir comme l'opacité et le
  manque d'explicabilitié de ceux-cis.
-\end_layout
-
-\begin_layout Standard
-Transhumanisme
-\end_layout
-
-\begin_layout Standard
-exosommatisation
-\end_layout
-
-\begin_layout Standard
-Opacité
 \end_layout
 
 \begin_layout Standard
@@ -1379,7 +1498,173 @@ Explicabilité
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename imgs/heatmap.png
+	display false
+	width 45col%
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Explication d'un coeur pathologique 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Ici pour l'explicabilité, nous utilisons les approches de zieler et fergus
+ TODO citation fergus 2014 qui consiste a observer la classification des
+ resultats d'un réseau de neurone deja entrainé dans le cas ou une image
+ aura une zone de taille 
+\begin_inset Formula $(n,n)$
+\end_inset
+
+ pixels qui sera 
+\begin_inset Quotes fld
+\end_inset
+
+effacée
+\begin_inset Quotes frd
+\end_inset
+
+ TODO: image avec patch effacé.
+ On déplace ensuite cette image d'un pixel de sorte a créer une heatmap
+ (TODO: translate)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "45text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename imgs/rhd_positive.jpg
+	display false
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Un cas pathologique de fievre rhumatique
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "45text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename imgs/heatmap_alone.png
+	display false
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Analyse de l'opacité, exemple 1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "45text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1390,10 +1675,13 @@ status collapsed
 \end_inset
 
 
+\end_layout
+
+\begin_layout Plain Layout
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Inspection/Destruction de HAL9000
+Analyse de l'opacité, exemple 2
 \end_layout
 
 \end_inset
@@ -1404,10 +1692,43 @@ Inspection/Destruction de HAL9000
 \end_inset
 
 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Faux positifs, qu'est ce qu'on extrait de ces images?
 \end_layout
 
 \begin_layout Section
-Néguantropie
+Néguantropie, prolétarisation, circuits longs de la transindividuation
+\end_layout
+
+\begin_layout Standard
+Une des motivations pour ce travail de recherche et développement autour
+ de l'explicabilité et de l'opacité au sein de Bay Labs vient de plusieurs
+ discussions avec les profesionnels du corps médical.
+ Quand nous avons commencé a travailler avec les cardiologues sur ces questions
+ d'apprentissage et de réseaux neuronaux, un de leur retours principaux
+ était la question de la prolétarisation.
+ En effet en tant que chercheurs, ingénieurs et entrepreneurs, nous fournissons
+ un outil aux médecins en vue de produire un diagnostic.
+ Il est critique que le médecin qui a la responsabilité finale du diagnostic
+ comprenne pourquoi l'outil fournit tel ou tel diagnostique.
+\end_layout
+
+\begin_layout Standard
+De plus, depuis le début de l'aventure, nous tentons de penser les circuits
+ longs de la transindividuation entre le corps médical et notre équipe de
+ recherche.
+ C'est a mon sens l'utilisation continue de ces boucles de renforcement
+ entre les médecins qui peuvent plus que jamais utiliser leur esprit critique.
+ En effet si nous conservons la trace des évemenents bugs on peut faire
+ bien.
+ Aussi nous avons remarqué que dans certains cas eg afrique et biais
 \end_layout
 
 \begin_layout Standard
@@ -1416,6 +1737,10 @@ Approche pharmacologique en vue d'eviter le besoin de ce truc la
 
 \begin_layout Standard
 Theorisation de la singularité
+\end_layout
+
+\begin_layout Standard
+Question de l'accélération de la recherche
 \end_layout
 
 \begin_layout Standard
@@ -1491,27 +1816,24 @@ Softmax
 \end_layout
 
 \begin_layout Standard
-Le craft revient a la contribution
+Dans le futur, pharmacon dans la loss function TODO translate loss
 \end_layout
 
 \begin_layout Standard
-mentors
+Quels sont les risques dans cette pratique? Comment pouvons nous aller encore
+ plus loin dans la pratique néguanthropique? 
 \end_layout
 
 \begin_layout Standard
-immitation d'un modele scientifique pour faire science
+Qu'est ce que l'explicabilité d'un point de vue apprentissage? 
 \end_layout
 
 \begin_layout Standard
-exosommatisation pousse 
+Socio inspirés, dépasser le bio-inspiré.
 \end_layout
 
 \begin_layout Standard
-remerciements
-\end_layout
-
-\begin_layout Standard
-pas d'accord avec les energies solaires
+Remerciements
 \end_layout
 
 \begin_layout Standard
