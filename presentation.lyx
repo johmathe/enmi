@@ -4,10 +4,11 @@
 \begin_header
 \save_transient_properties true
 \origin unavailable
-\textclass article
+\textclass paper
 \begin_preamble
 \usepackage{tikz}
 \newcommand\norm[1]{\left\lVert#1\right\rVert}
+\usepackage[hscale=0.7,vscale=0.8]{geometry}
 \end_preamble
 \use_default_options true
 \maintain_unincluded_children false
@@ -33,7 +34,7 @@
 \paperfontsize default
 \spacing single
 \use_hyperref false
-\papersize default
+\papersize a4paper
 \use_geometry false
 \use_package amsmath 1
 \use_package amssymb 1
@@ -112,12 +113,63 @@ Ce sur quoi je travaille
 11 ans
 \end_layout
 
+\begin_layout Standard
+Le geste et la parole/Gesture and Speech, published in 1964, the same year
+ in which Kubrick starting work on 2001.
+ (Although Leroi-Gourhan’s book was only just translated in 1991, so that
+ idea is quite dubious.)
+\end_layout
+
+\begin_layout Standard
+Dans 2001, K
+\end_layout
+
+\begin_layout Standard
+TODO: better citations
+\end_layout
+
 \begin_layout Section
 Introduction
 \end_layout
 
 \begin_layout Standard
-Dans son film 2001, a space odyssey, kubrick nous fait voyager
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename imgs/sf_symphony_kubrick.jpg
+	display false
+	width 100col%
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+SF Symphony et 2001
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Ce travail est né d'une discussion cet été avec Bernard Stiegler autour
+ de la computation, de l'IA et des réseaux de neurones.
+ Quand j'ai mentionné le fait qu'un de mes axes de recherche et développement
+ était l'explicabilité des réseaux de neurones a couches profondes appliquées
+ aux problématiques du diagnostique médical, il m'a demandé si une intervention
+ au sein du séminaire 
 \end_layout
 
 \begin_layout Standard
@@ -159,7 +211,51 @@ Baylabs
 Baylabs, Inc est une startup qui a pour mission d'améliorer la qualité,
  valeur et l'acces a l'imagerie médicale.
  Le premier produit sur lequel l'équipe travaille est un systeme d'analyse
- cardiaque basé sur l'utilisation de l'ultrason.
+ cardiaque basé sur l'utilisation de l'ultrason et de l'echocardiographie.
+ Nous travaillons a l'interesection de deux technologies : la miniaturisation
+ des techniques d'acquisition de données de scans ultrasons ainsi que le
+ l'utilisation des réseaux neuronaux profonds.
+ Nous travaillons actuellement en partenariat avec cinq universités et centres
+ hospitaliers américains : Stanford University, Northwestern University
+ a Chicago, Duke University sur la cote est ainsi que Mineapolis Heart Institute.
+ Un de nos premiers prototypes permet de faire du diagnostic des signes
+ a vant coureur de la fievre rhumatismale.
+ La fièvre rhumatismale est une complication des infections de l’enfance
+ et de l’adolescence, qui survient à la suite des angines dues au streptocoque
+ hémolytique, et qui n’ont pas été soignées par des antibiotiques.
+ Cette pathologie est assez facile a traiter avec des antibiotiques, mais
+ difficile a diagnostiquer sans avoir de vision interne du coeur.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename imgs/baylabs_software.jpg
+	display false
+	width 100col%
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Quote from Kubrick
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -167,7 +263,16 @@ Réseaux neuronaux artificiels profonds
 \end_layout
 
 \begin_layout Standard
-Le but d'un réseau neuronal est d'approximer une fonction 
+Je vais maintenant introduire les réseaux de neurones artificiels profonds.
+ Cette introduction est largement inspirée d'une parution en anglais 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Goodfellow-et-al-2016-Book"
+
+\end_inset
+
+.
+ Le but d'un réseau neuronal est d'approximer une fonction 
 \begin_inset Formula $f^{*}$
 \end_inset
 
@@ -532,12 +637,105 @@ end{tikzpicture}
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "48text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
 \begin_inset Graphics
 	filename imgs/rhd_positive.jpg
 	display false
 	width 100col%
-	height 100col%
-	keepAspectRatio
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Un cas pathologique de fievre rhumatique
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "48text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename imgs/coeur_sain.png
+	display false
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Un coeur sain
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -644,6 +842,10 @@ La minimisation de cette valeur se fait par l'algorithme du gradient (aussi
 
 \begin_layout Subsection
 Convexité
+\end_layout
+
+\begin_layout Standard
+Il est important de mentionner 
 \end_layout
 
 \begin_layout Standard
@@ -791,11 +993,30 @@ H(x)\mathbb{=E}_{x\sim P}[I(x)]=-\mathbb{E}_{X\sim P}[\log(x)]
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \begin_inset Graphics
 	filename imgs/non_linear.pdf
 	display false
 	width 100col%
-	height 100col%
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Inspection/Destruction de HAL9000
+\end_layout
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -858,6 +1079,10 @@ not talking about
 
 \begin_layout Section
 Opacité, Explicabilité
+\end_layout
+
+\begin_layout Subsection
+Opacité
 \end_layout
 
 \begin_layout Standard
@@ -991,10 +1216,6 @@ key "yosinski-2015-ICML-DL-understanding-neural-networks"
 \end_inset
 
 
-\end_layout
-
-\begin_layout Subsection
-Resultats
 \end_layout
 
 \begin_layout Standard
@@ -1150,48 +1371,29 @@ Analyse de l'opacité, exemple 2
 
 \end_layout
 
-\begin_layout Standard
-\begin_inset Graphics
-	filename imgs/opacite1.jpg
-	display false
-	width 100col%
-	height 100col%
-
-\end_inset
-
-
+\begin_layout Subsection
+Explicabilité
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 \begin_inset Float figure
-placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename imgs/opacite2.jpg
+	filename imgs/heatmap.png
 	display false
 	width 100col%
-	height 100col%
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Plain Layout
-
-\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-
-\lang english
-Opacité
+Inspection/Destruction de HAL9000
 \end_layout
 
 \end_inset
@@ -1217,10 +1419,13 @@ Theorisation de la singularité
 \end_layout
 
 \begin_layout Standard
+the ideal superior man of the future who could rise above conventional Christian
+ morality to create and impose his own values, originally described by Nietzsche
+ in Thus Spake Zarathustra (1883–85).
+\end_layout
 
-\lang english
+\begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status open
@@ -1230,22 +1435,14 @@ status open
 	filename imgs/ubermensch.png
 	display false
 	width 100col%
-	height 100col%
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Plain Layout
-
-\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-
-\lang english
-Opacité
+proposition : ubermesch selon kubrick
 \end_layout
 
 \end_inset
@@ -1259,10 +1456,7 @@ Opacité
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status open
@@ -1272,22 +1466,14 @@ status open
 	filename imgs/singularity.png
 	display false
 	width 100col%
-	height 100col%
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Plain Layout
-
-\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-
-\lang english
-Kubrick: singularité
+proposition : Singularité selon Kubrick
 \end_layout
 
 \end_inset
