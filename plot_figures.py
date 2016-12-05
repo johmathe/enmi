@@ -4,12 +4,30 @@ from matplotlib import cm
 import mpl_toolkits.mplot3d
 import matplotlib.pyplot as plt
 import numpy as np
+import scipy.misc as sm
 
 from matplotlib import rc
 rc('text', usetex=True)
 alpha = {'alpha': 1.0}
 matplotlib.rc('grid', **alpha)
 
+img = np.random.randint(0, 255, size=(256, 256, 3))
+plt.imshow(img)
+
+RHD_ROOT = '/Users/johmathe/code/enmi/imgs/'
+img = sm.imread(RHD_ROOT + 'rhd_positive.jpg')
+img = sm.imresize(img, (227,227,3))
+img[50:66, 50:66, :] = (255,255,255)
+plt.imshow(img)
+plt.savefig('imgs/patch.pdf')
+plt.figure()
+
+
+img = np.random.randint(0,255,size=(256,256,3))
+
+plt.imshow(img, interpolation=None)
+plt.savefig('imgs/white_noise.pdf')
+plt.figure()
 
 X = np.arange(-2, 2, 0.03)
 Y = np.arange(-2, 2, 0.03)
@@ -108,8 +126,3 @@ plt.xlabel('$x$')
 plt.ylabel('$f(x) = x^2$')
 plt.grid()
 plt.savefig('imgs/gradient_descent.pdf')
-
-
-img = np.random.randint(0,255,size=(256,256,3))
-plt.imshow(img)
-plt.savefig('imgs/white_noise.pdf')

@@ -196,7 +196,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Ape
+Exosomatisation initiale : l'os
 \end_layout
 
 \end_inset
@@ -227,7 +227,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Vaisseau
+Exosommatisation finale : le vaisseau spatial autonome
 \end_layout
 
 \end_inset
@@ -283,6 +283,112 @@ status open
 
 \begin_layout Plain Layout
 John utilisant le prototype EchoMD
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "48text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename imgs/coeur_sain.png
+	display false
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Un coeur sain (vue PLAX)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "48text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename imgs/rhd_positive.jpg
+	display false
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Un coeur atteint de fièvre rhumatismale
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -689,6 +795,7 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
 \begin_inset Graphics
 	filename imgs/non_linear.pdf
 	display false
@@ -706,7 +813,7 @@ name "fig:non-linear"
 
 \end_inset
 
-Une non-linéarité de type relu
+Une non-linéarité de type relu 
 \begin_inset Formula $\sigma(x)=\max(0,x)$
 \end_inset
 
@@ -736,7 +843,7 @@ name "subsec:L'apprentissage"
 
 \begin_layout Standard
 L'apprentissage est un processus souvent itératif qui permet d'estimer une
- fonction de type réseau neuronal grace a une grande quantité de données
+ fonction de type réseau neuronal grâce a une grande quantité de données
  d'entrée.
  Dans notre cas de classification d'images pathologiques ou non, nous aurons
  un ensemble de tuples 
@@ -748,23 +855,29 @@ L'apprentissage est un processus souvent itératif qui permet d'estimer une
 \end_layout
 
 \begin_layout Standard
-D'un point de vue mathématique on peut voir le probleme de l'apprentissage
- comme un probleme d'optimisation.
+D'un point de vue mathématique on peut voir le problème de l'apprentissage
+ comme un problème d'optimisation.
  Il s'agit de minimiser la somme des erreur entre les prédictions de notre
  réseau de neurones et les données labellisées par des experts (dans notre
  cas les experts du monde médical).
- L'outil mathématique utilisé dans ce cas est une loss function TODO():
- traduire loss.
- Cette fonction a pour but d'augmenter quand l'erreur de prediction augmente,
- et de diminuer le cas contraire.
+ L'outil mathématique utilisé dans ce cas est une 
+\series bold
+fonction d'erreur
+\series default
+.
+ Elle a pour but d'augmenter quand l'erreur de prediction augmente, et de
+ diminuer le cas inverse.
  
 \end_layout
 
 \begin_layout Standard
-Un exemple classique d'une loss TODO translate est la distance euclidienne,
- aussi appelée loss euclidienne.
- Elle représente la distance euclidienne qui sépare 2 points dans un espace
- donné.
+Un cas d'école de fonction d'erreur est la distance euclidienne, aussi appelée
+ norme 
+\begin_inset Formula $L^{2}$
+\end_inset
+
+.
+ Elle représente la distance séparant deux points dans un espace euclidien.
 \end_layout
 
 \begin_layout Standard
@@ -795,8 +908,11 @@ Dans notre cas cet espace est l'espace des parametres et nous retrouvons
 \end_layout
 
 \begin_layout Standard
-La minimisation de cette valeur se fait par l'algorithme du gradient (aussi
- appelé gradient descent, steepest descent).
+La minimisation de cette valeur se fait par l'
+\series bold
+algorithme du gradient
+\series default
+ (aussi appelé gradient descent, steepest descent).
  L'idée relativement simple.
  On commence par choisir un point aléatoire 
 \begin_inset Formula $\boldsymbol{\theta}_{0}$
@@ -811,12 +927,12 @@ La minimisation de cette valeur se fait par l'algorithme du gradient (aussi
 \begin_inset Formula $m$
 \end_inset
 
- dimensions des parametres de notre fonction 
+ dimensions des paramètres de notre fonction 
 \begin_inset Formula $f(x;\boldsymbol{\theta})$
 \end_inset
 
 .
- On fait ensuite une mise a jour de notre parametre qui devient 
+ On fait ensuite une mise a jour de notre paramètre qui devient 
 \begin_inset Formula $\boldsymbol{\theta}_{1}$
 \end_inset
 
@@ -852,7 +968,7 @@ reference "algo_illustr"
  en un point.
  Les droites rouges illustrent les tangentes de la droite en chaque point
  et montrent comment l'algorithme évolue.
- Apres quelques itérations on considere un critere d'arret comme par exemple
+ Apres quelques itérations on considère un critère d'arrêt comme par exemple
  le fait que la valeur du gradient soit proche d'une valeur arbitrairement
  faible 
 \begin_inset Formula $\epsilon$
@@ -868,6 +984,7 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
 \begin_inset Graphics
 	filename imgs/gradient_descent.pdf
 	display false
@@ -903,9 +1020,16 @@ Convexité
 \end_layout
 
 \begin_layout Standard
-Une des differences notables entre les algorithmes de type réseaux de neurones
+Une des différences notables entre les algorithmes de type réseaux de neurones
  profonds et les méthodes plus anciennes d'apprentissage supervisé comme
- par exemple une SVM TODO citation SVM est la non-convexité du probleme.
+ par exemple une SVM 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Cortes1995"
+
+\end_inset
+
+est la non-convexité du problème.
  Nous allons revenir quelques instants sur la définition de la convexité,
  car celle ci est capitale pour la suite de cet exposé.
  L'ensemble convexe est défini de sorte a ce que si l'on choisit deux points
@@ -914,7 +1038,7 @@ Une des differences notables entre les algorithmes de type réseaux de neurones
 \end_inset
 
  dans cet ensemble, tous les points formés par l'ensemble des barycentres
- entre ces deux points appartiendront aussi a l'ensemble (voir equation
+ entre ces deux points appartiendront aussi a l'ensemble (voir équation
  
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -960,11 +1084,11 @@ f\left(tx+(1-t)y\right)\leq t\,f(x)+(1-t)\,f(y)\label{eq:convex_fn}
 \end_layout
 
 \begin_layout Standard
-Une caracteristique principale des fonctions convexes est qu'elle ne possede
+Une caractéristique principale des fonctions convexes est qu'elle ne possède
  qu'un seul maximum, celui ci étant donc de fait un maximum global.
  Ceci implique donc des garanties importantes quant a la convergence de
  notre fonction d'objectif.
- Nous avons la garantie d'obtenir la solution au probleme d'optimisation.
+ Nous avons la garantie d'obtenir la solution au problème d'optimisation.
 \end_layout
 
 \begin_layout Standard
@@ -1082,7 +1206,7 @@ Une fonction non convexe de
 \end_layout
 
 \begin_layout Standard
-Les réseaux neuronaux profonds etant composés d'une succession d'opérations
+Les réseaux neuronaux profonds étant composés d'une succession d'opérations
  linéaires (convexes) et non-linéaires (non convexes), la composition de
  fonctions non convexes est généralement une fonction non-convexe.
  Ceci implique que dans le cas général, les solutions obtenues par des algorithm
@@ -1095,22 +1219,22 @@ Une nouvelle fonction d'erreur : minimisation de l'entropie croisée
 \end_layout
 
 \begin_layout Standard
-On veut quantifier l'information d'une maniere qui formalise une forme d'intuiti
+On veut quantifier l'information d'une manière qui formalise une forme d'intuiti
 on.
  
 \end_layout
 
 \begin_layout Itemize
-Les evenements qui sont fortement probable devraient avoir un contenu en
- information faible, et les evements qui sont garantis devraient avoir un
- contenu informationel proche de zéro.
- Un exemple typique est que le soleil se leverea demain.
- Cette phrase a un contenu informationel faible si l'on connait l'histoire
+Les évènements qui sont fortement probable devraient avoir un contenu en
+ information faible, et ceux qui sont garantis devraient avoir un contenu
+ informationnel proche de zéro.
+ Un exemple typique est que le soleil se levera demain.
+ Cette phrase a un contenu informationnel faible si l'on connait l'histoire
  des levers et couchers de soleils depuis le début de l'histoire de l'humanité.
 \end_layout
 
 \begin_layout Itemize
-Les evenements peu probables devraient avoir un contenu informationel élevé.
+Les évènements peu probables devraient avoir un contenu informationnel élevé.
  Les évemenents independants devraient avoir une information additive.
  Par exemple, se rendre compte que lors d'un lancer de dés est tombé sur
  pile deux fois
@@ -1121,6 +1245,13 @@ Shannon a théorisé dans son papier
 \series bold
 A Mathematical Theory of Communication 
 \series default
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Shannon:1963:MTC:1102016"
+
+\end_inset
+
 l'entropie comme suit: 
 \end_layout
 
@@ -1140,39 +1271,11 @@ Différents types d'entropie:
 \end_layout
 
 \begin_layout Itemize
-Entropy de gibbs
+Entropie de Gibbs
 \end_layout
 
 \begin_layout Itemize
-Entropy de von neumann
-\end_layout
-
-\begin_layout Standard
-Self-information deals only with a single outcome.
- We can quantify the amountof uncertainty in an entire probability distribution
- using the Shannon entropy:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-H(x)\mathbb{=E}_{x\sim P}[I(x)]=-\mathbb{E}_{X\sim P}[\log(x)]
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-C=-\frac{1}{n}\sum_{x}[y\ln a+(1-y)\ln(1-a)]
-\]
-
-\end_inset
-
-
+Entropie de von Neumann
 \end_layout
 
 \begin_layout Subsection
@@ -1180,8 +1283,8 @@ Entropie Croisée
 \end_layout
 
 \begin_layout Standard
-Shannon a théorisé l'entropie d'un point de vue informationel dans sa publicatio
-n de 1948, 
+Shannon a théorisé l'entropie d'un point de vue informationnel dans sa publicati
+on de 1948, 
 \series bold
 A Mathematical Theory of Communication 
 \begin_inset CommandInset citation
@@ -1196,7 +1299,18 @@ key "Shannon:1963:MTC:1102016"
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-H_{y'}(y)=\sum_{i}y_{i}'\log(y_{i})
+H(p,q)=-\sum_{x}p(x)\log(q(x))
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+H(p,q)=
 \end{equation}
 
 \end_inset
@@ -1209,17 +1323,17 @@ Opacité, Explicabilité
 \end_layout
 
 \begin_layout Standard
-Dans 2001 l'odyssée de l'espace, le kubrick met en scene un monolithe a
+Dans 2001 l'odyssée de l'espace, le Kubrick met en scène un monolithe a
  trois reprises, dans des moments clés de l'intrigue:
 \end_layout
 
 \begin_layout Itemize
-Au debut juste avant que le post neanderthal mette en place sa premiere
- exosomatisation
+Au début juste avant que le post Neandertal mette en place sa première exosommat
+isation
 \end_layout
 
 \begin_layout Itemize
-Juste avant l'apparition de HAL9000, qui est finalement l'exosommatisaion
+Juste avant l'apparition de HAL9000, qui est finalement l'exosommatisation
  ultime
 \end_layout
 
@@ -1228,14 +1342,14 @@ A la fin, pour la transition entre l'homme et l'ubermensch
 \end_layout
 
 \begin_layout Standard
-Dans l'oeuvre originale de l'ecrivain Arthur C Clarke de qui le film est
+Dans l'oeuvre originale de l'écrivain Arthur C Clarke de qui le film est
  inspiré, le monolithe a une forme de pyramide.
  Kubrick décide de remplacer cette forme pyramidale en forme parallépipedique,
  qui ressemble finalement a une boite noire.
  Quand Kubrick dans les années 60 a fait ses recherches sur les balbutiements
  de l'intelligence artificielle, il a passé du temps avec Minsky au MIT,
  pour essayer de comprendre les tenants et les aboutissants de l'IA.
- En théorie des systemes, une boite noire est une représentation d'un systeme
+ En théorie des systèmes, une boite noire est une représentation d'un système
  pour lequel seulement ses entrées et ses sorties sont observables.
  
 \begin_inset Float figure
@@ -1277,7 +1391,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Premiere apparition du Monolithe
+Première apparition du Monolithe
 \end_layout
 
 \end_inset
@@ -1325,7 +1439,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Deuxieme apparition du Monolithe
+Deuxième apparition du Monolithe
 \end_layout
 
 \end_inset
@@ -1383,7 +1497,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-troisieme aparition du Monolithe
+troisième aparition du Monolithe
 \end_layout
 
 \end_inset
@@ -1459,15 +1573,15 @@ Je vais maintenant décrire des travaux qui sont liés a des axes de recherches
 
 \begin_layout Standard
 Un réseau de neurone artificiel est dit opaque de par la nature non-convexe
- du probleme d'apprentissage, nous n'avons aucune visibilité sur les performance
-s ni sur les criteres internes qui font que ce dernier perform (TODO) bien
+ du problème d'apprentissage, nous n'avons aucune visibilité sur les performance
+s ni sur les critères internes qui font que ce dernier perform (TODO) bien
  ou mal TODO rephrase.
 \end_layout
 
 \begin_layout Standard
 L'explicabilité ici est définie comme une production d'information qui va
- déterminer les criteres d'un signal d'entrée qui ont amené le réseau de
- neurones a faire un choix plutot qu'un autre.
+ déterminer les critères d'un signal d'entrée qui ont amené le réseau de
+ neurones a faire un choix plutôt qu'un autre.
 \end_layout
 
 \begin_layout Subsection
@@ -1477,14 +1591,14 @@ Opacité
 \begin_layout Standard
 Une des plus grandes problématiques posées aujourd'hui par les réseaux de
  neurones profonds est liée a ce qu'on peut définir comme l'opacité et le
- manque d'explicabilitié de ceux-cis.
+ manque d'explicabilité de ceux-ci.
 \end_layout
 
 \begin_layout Standard
 Pour diminuer l'opacité de ce type d'algorithmes, nous nous penchons sur
  une technique relativement ancienne, mais qui a été re popularisée récemment
- grace aux travaux de Erhan et al 2009 TODO Citations.
- Il s'agit simplement de l'operation inverse de l'apprentissage.
+ grâce aux travaux de Erhan et al 2009 TODO Citations.
+ Il s'agit simplement de l'opération inverse de l'apprentissage.
  Nous avons vu que l'apprentissage consistait simplement en une optimisation
  d'une fonction d'objectif visant a minimiser une erreur de prédiction,
  ou encore une entropie croisée entre une distribution attendue et une distribut
@@ -1492,8 +1606,8 @@ ion produite par le réseau de neurones.
 \end_layout
 
 \begin_layout Standard
-Ici nous allons maximiser une activation en considerant la fonction inverse
- de notre reseau de neurones:
+Ici nous allons maximiser une activation en considérant la fonction inverse
+ de notre réseau de neurones:
 \end_layout
 
 \begin_layout Standard
@@ -1508,7 +1622,7 @@ h^{*}(\boldsymbol{X},\boldsymbol{\theta})=f^{*-1}(\boldsymbol{X},\boldsymbol{\th
 \end_layout
 
 \begin_layout Standard
-Nous solvons donc le probleme d'optimisation suivant:
+Nous résolvons donc le problème d'optimisation suivant:
 \end_layout
 
 \begin_layout Standard
@@ -1574,7 +1688,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Un cas pathologique de fievre rhumatique
+Un cas pathologique de fièvre rhumatique
 \end_layout
 
 \end_inset
@@ -1680,6 +1794,54 @@ Analyse de l'opacité, exemple 2
 \end_inset
 
 
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "45text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename imgs/whitenoise.png
+	display false
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Bruit blanc, point initial
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1694,7 +1856,7 @@ Explicabilité
 \begin_layout Standard
 Ici pour l'explicabilité, nous utilisons les approches de zieler et fergus
  TODO citation fergus 2014 qui consiste a observer la classification des
- resultats d'un réseau de neurone deja entrainé dans le cas ou une image
+ résultats d'un réseau de neurone déjà entrainé dans le cas ou une image
  aura une zone de taille 
 \begin_inset Formula $(n,n)$
 \end_inset
@@ -1752,7 +1914,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Un cas pathologique de fievre rhumatique
+Un cas pathologique de fièvre rhumatique
 \end_layout
 
 \end_inset
@@ -1858,6 +2020,54 @@ Analyse de l'opacité, exemple 2
 \end_inset
 
 
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "45text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename imgs/patch.png
+	display false
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Analyse de l'opacité, exemple 1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1876,7 +2086,7 @@ Néguantropie, prolétarisation, circuits longs de la transindividuation
 \begin_layout Standard
 Une des motivations pour ce travail de recherche et développement autour
  de l'explicabilité et de l'opacité au sein de Bay Labs vient de plusieurs
- discussions avec les profesionnels du corps médical.
+ discussions avec les professionnels du corps médical.
  Quand nous avons commencé a travailler avec les cardiologues sur ces questions
  d'apprentissage et de réseaux neuronaux, un de leur retours principaux
  était la question de la prolétarisation.
@@ -1898,40 +2108,40 @@ De plus, depuis le début de l'aventure, nous tentons de penser les circuits
 \end_layout
 
 \begin_layout Standard
-Finalement Kubrick positionne la boite noire - le monollithe - avant chaque
+Finalement Kubrick positionne la boite noire - le monolithe - avant chaque
  transition.
  Ces boites noires agissent comme des marqueurs de temps.
 \end_layout
 
 \begin_layout Itemize
 Dans le premier cas, nous avons du recul pour comprendre le fonctionnement
- d'un outil aussi primaire que le baton.
+ d'un outil aussi primaire que le bâton.
  Il nous montre notre passé.
- Il montre aussi que l'homme primitif ne comprennait pas vraiment la mecanique
+ Il montre aussi que l'homme primitif ne comprenait pas vraiment la mécanique
  classique.
  Pour nous l'utilisation de cet outil est tout a fait transparente.
  Pour le singe c'est une boite noire.
 \end_layout
 
 \begin_layout Itemize
-Dans le deuxieme cas, kubrick montre les dangers de designer une AI de facon
+Dans le deuxième cas, Kubrick montre les dangers de designer une AI de façon
  boite noire.
  En effet la gestion des erreurs devient impossible (la crisis commence
- au moment ou les ingenieurs a bord se rendent compte que HAL9000 a commit
+ au moment ou les ingénieurs a bord se rendent compte que HAL9000 a commit
  une erreur.
  La confiance est perdue.)
 \end_layout
 
 \begin_layout Itemize
-Dans le dernier cas, totalement oenirique, kubrick a mon sens théorise la
+Dans le dernier cas, totalement onirique, Kubrick a mon sens théorise la
  singularité (voir figure ) en empruntant la thématique de l'ubermensch
- de Nietzche.
- Nietzche définit l'ubermescnh come l'home supérieur pouvant s'élever en
+ de Nietzsche.
+ Nietzsche définit l'ubermescnh come l'home supérieur pouvant s'élever en
  dessus de la morale chrétienne et imposer ses propres valeurs.
  Il nous met face a un scénario qui dépassent notre entendement cartésien
  et joue sur nos peur primaires (vieillissement prématuré de l'acteur dans
  un environnement vicié) - avant d'avoir la renaissance finale.
- Avec le theme de strauss reprenant le relai.
+ Avec le thème de Strauss reprenant le relai.
  On se retrouve dans un cas typique Kubrick ne compose plus seulement avec
  la musique et l'image, mais avec le subconscient du récepteur.
  La renaissance de l'homme en 
@@ -1943,10 +2153,10 @@ star child
 \end_inset
 
 .
- La boite noire est la pour nous rapeller que les techniques sont souvent
+ La boite noire est la pour nous rappeler que les techniques sont souvent
  découvertes par hasard.
  L'homme singe n'a pas attendu la mécanique newtonienne pour se servir du
- baton - hors c'est celle ci qui va expliquer avec exactitude quelle energie
+ bâton - hors c'est celle ci qui va expliquer avec exactitude quelle énergie
  il devra déployer pour l'utiliser précisément.
 \end_layout
 
@@ -1964,6 +2174,7 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
 \begin_inset Graphics
 	filename imgs/singularity.png
 	display false
@@ -1995,6 +2206,7 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
 \begin_inset Graphics
 	filename imgs/ubermensch.png
 	display false
@@ -2020,12 +2232,12 @@ proposition : ubermesnch
 \end_layout
 
 \begin_layout Subsection
-Une proposition pharmacologique
+Une proposition pharmakologique
 \end_layout
 
 \begin_layout Standard
-Je propose d'utiliser une approche pharmacologique lors de l'apprentissage.
- Rapellons nous 
+Je propose d'utiliser une approche pharmakologique lors de l'apprentissage.
+ Rapellons nous un exemple de fonction d'erreur:
 \end_layout
 
 \begin_layout Standard
@@ -2040,7 +2252,7 @@ Je propose d'utiliser une approche pharmacologique lors de l'apprentissage.
 \end_layout
 
 \begin_layout Standard
-Maintenant si nous definissons une fonction d'explicabilitié 
+Maintenant si nous définissons une fonction d'explicabilité 
 \begin_inset Formula $E(\theta)$
 \end_inset
 
@@ -2067,14 +2279,58 @@ Maintenant si nous definissons une fonction d'explicabilitié
 \end_layout
 
 \begin_layout Standard
-J'aimerais que nous discutions ensemble d'un type d'algorithme que je définis
- comme socio inspiré.
- En effet il nous incompe de définir ces fonctions O et E en s'inspirant
- des sciences de l'éducation et de l'aprentissage et de la pédagogice
+\begin_inset Formula 
+\[
+\alpha\ge0
+\]
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-Science vs explicabilitié: 
+\begin_inset Formula 
+\[
+\beta\ge0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+J'aimerais que nous discutions ensemble d'un type d'algorithme que je définis
+ comme socio inspiré.
+ En effet il nous incombe de définir ces fonctions 
+\begin_inset Formula $O(\theta)$
+\end_inset
+
+ et 
+\begin_inset Formula $E(\theta)$
+\end_inset
+
+ en s'inspirant des sciences de l'éducation et de l'apprentissage et de
+ la pédagogie.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+ & \begin{bmatrix}-I_{3\times3}\\
+I_{3\times3}
+\end{bmatrix}\boldsymbol{x}\le\begin{bmatrix}\boldsymbol{0}_{3\times1}\\
+1^{3}\\
+2^{3}\\
+3^{3}
+\end{bmatrix}^{T}\\
+ & \boldsymbol{x}\in\mathbb{R}^{3}
+\end{eqnarray*}
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
