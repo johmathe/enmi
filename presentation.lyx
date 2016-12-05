@@ -85,49 +85,6 @@ Néguantropie, opacité et explicabilité des réseaux neuronaux artificiels
 Johan Mathe johmathe@baylabs.io 
 \end_layout
 
-\begin_layout Standard
-Remerciements pour etre aussi nombreux et nombreux
-\end_layout
-
-\begin_layout Standard
-Je tiens a remercier Bernard Stiegler, Raphaele
-\end_layout
-
-\begin_layout Standard
-Presentations georgescu roden
-\end_layout
-
-\begin_layout Standard
-Je vous precise simplement que je ne travaille pas exclusivement
-\end_layout
-
-\begin_layout Standard
-Ce sur quoi je travaille
-\end_layout
-
-\begin_layout Standard
-20045
-\end_layout
-
-\begin_layout Standard
-11 ans
-\end_layout
-
-\begin_layout Standard
-Le geste et la parole/Gesture and Speech, published in 1964, the same year
- in which Kubrick starting work on 2001.
- (Although Leroi-Gourhan’s book was only just translated in 1991, so that
- idea is quite dubious.)
-\end_layout
-
-\begin_layout Standard
-Dans 2001, K
-\end_layout
-
-\begin_layout Standard
-TODO: better citations
-\end_layout
-
 \begin_layout Section
 Introduction
 \end_layout
@@ -164,12 +121,22 @@ SF Symphony et 2001
 \end_layout
 
 \begin_layout Standard
-Ce travail est né d'une discussion cet été avec Bernard Stiegler autour
- de la computation, de l'IA et des réseaux de neurones.
- Quand j'ai mentionné le fait qu'un de mes axes de recherche et développement
- était l'explicabilité des réseaux de neurones a couches profondes appliquées
- aux problématiques du diagnostique médical, il m'a demandé si une intervention
- au sein du séminaire 
+Je voudrais commencer par remercier Bernard Stiegler qui m'a demandé d'interveni
+r pendant ce séminaire cet été apres une discussion sur la disruption au
+ sein de l'entreprenariat dans la région de San Francisco.
+ En tant qu'in génieur, j'ai vu ce projet comme un exercice de création
+ d'un objet temporel.
+ Je suis allé voir il y a plus d'un mois maintenant 2001 a space odyssey
+ de Kubrick joué par l'orchestre symphonique de San Francisco.
+ Ce film a toujours eu une place particuliere dans ma vie, je l'ai vu pour
+ la premiere fois a l'age de 10 ans, puis tous les 5 ans jusqu'a aujourd'hui.
+ C'etait donc mon cinquieme visionnage.
+ Le fait d'avoir la musique jouée par un orchestre symphonique a mis en
+ exergue la place centrale de strauss dans cette oeuvre de Kubrick, qui
+ elle meme fait le pont vers Ainsi Parlait Zarathustra.
+ J'ai donc décidé de travailler sous la contrainte pour cette présentation
+ et d'utiliser une trame narrative qui va faire un paralele entre certains
+ de mes travaux de recherche et l'analyse de 2001.
 \end_layout
 
 \begin_layout Standard
@@ -190,7 +157,77 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Quote from Kubrick
+Citation de Kubrick
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Le premier volet du film montre un homme primitif confronté a la découverte
+ de la premiere exosommatisation devant un monolithe noir.
+ Kubrick fait alors une des ellipses narratives les plus longues de l'histoire.
+ On arrive a ce qu'il considerera comme les dernieres exosommatisation:
+ la conquete de l'espace et la naissance de l'intelligence artificielle.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename imgs/ape.png
+	display false
+	width 100col%
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Ape
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename imgs/vaisseau.png
+	display false
+	width 100col%
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Vaisseau
 \end_layout
 
 \end_inset
@@ -688,6 +725,13 @@ Une non-linéarité de type relu
 
 \begin_layout Subsection
 L'apprentissage
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:L'apprentissage"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1047,8 +1091,7 @@ es de la famille des algorithmes du gradient ne nous donnent pas une garantie
 \end_layout
 
 \begin_layout Subsection
-Une nouvelle fonction d'objectif TODO(): traduire la minimisation de l'entropie
- croisée
+Une nouvelle fonction d'erreur : minimisation de l'entropie croisée
 \end_layout
 
 \begin_layout Standard
@@ -1093,7 +1136,15 @@ I(x)=-\log P(x)
 \end_layout
 
 \begin_layout Standard
-Entropy de gibbs, entropy de von neumann
+Différents types d'entropie:
+\end_layout
+
+\begin_layout Itemize
+Entropy de gibbs
+\end_layout
+
+\begin_layout Itemize
+Entropy de von neumann
 \end_layout
 
 \begin_layout Standard
@@ -1116,29 +1167,7 @@ H(x)\mathbb{=E}_{x\sim P}[I(x)]=-\mathbb{E}_{X\sim P}[\log(x)]
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\sigma(x)=\max(0,x)
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
 C=-\frac{1}{n}\sum_{x}[y\ln a+(1-y)\ln(1-a)]
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
--\log P[data|model]=\frac{1}{N}
 \]
 
 \end_inset
@@ -1175,20 +1204,249 @@ H_{y'}(y)=\sum_{i}y_{i}'\log(y_{i})
 
 \end_layout
 
-\begin_layout Standard
-soft max
-\end_layout
-
-\begin_layout Standard
-soft arg max
-\end_layout
-
-\begin_layout Standard
-not talking about 
-\end_layout
-
 \begin_layout Section
 Opacité, Explicabilité
+\end_layout
+
+\begin_layout Standard
+Dans 2001 l'odyssée de l'espace, le kubrick met en scene un monolithe a
+ trois reprises, dans des moments clés de l'intrigue:
+\end_layout
+
+\begin_layout Itemize
+Au debut juste avant que le post neanderthal mette en place sa premiere
+ exosomatisation
+\end_layout
+
+\begin_layout Itemize
+Juste avant l'apparition de HAL9000, qui est finalement l'exosommatisaion
+ ultime
+\end_layout
+
+\begin_layout Itemize
+A la fin, pour la transition entre l'homme et l'ubermensch
+\end_layout
+
+\begin_layout Standard
+Dans l'oeuvre originale de l'ecrivain Arthur C Clarke de qui le film est
+ inspiré, le monolithe a une forme de pyramide.
+ Kubrick décide de remplacer cette forme pyramidale en forme parallépipedique,
+ qui ressemble finalement a une boite noire.
+ Quand Kubrick dans les années 60 a fait ses recherches sur les balbutiements
+ de l'intelligence artificielle, il a passé du temps avec Minsky au MIT,
+ pour essayer de comprendre les tenants et les aboutissants de l'IA.
+ En théorie des systemes, une boite noire est une représentation d'un systeme
+ pour lequel seulement ses entrées et ses sorties sont observables.
+ 
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "48text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename imgs/monolithe1.png
+	display false
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Premiere apparition du Monolithe
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "48text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename imgs/monolithe2.png
+	display false
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Deuxieme apparition du Monolithe
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "48text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename imgs/monolithe3.png
+	display false
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+troisieme aparition du Monolithe
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "48text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename imgs/monolithe-sun.png
+	display false
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Monolithe
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1214,41 +1472,6 @@ L'explicabilité ici est définie comme une production d'information qui va
 
 \begin_layout Subsection
 Opacité
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename imgs/mind_going.png
-	display false
-	width 100col%
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Inspection/Destruction de HAL9000
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -1300,41 +1523,15 @@ Nous solvons donc le probleme d'optimisation suivant:
 \end_layout
 
 \begin_layout Standard
-TODO review this
-\end_layout
-
-\begin_layout Standard
-Nous pouvons reutiliser la méthode de l'algorithme du gradient
-\end_layout
-
-\begin_layout Standard
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Goodfellow-et-al-2016-Book"
+Nous pouvons réutiliser la méthode de l'algorithme du gradient présentée
+ lors de l'introduction de l'apprentissage (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:L'apprentissage"
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset CommandInset citation
-LatexCommand cite
-key "visualization_techreport"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset CommandInset citation
-LatexCommand cite
-key "yosinski-2015-ICML-DL-understanding-neural-networks"
-
-\end_inset
-
-
+).
 \end_layout
 
 \begin_layout Standard
@@ -1492,37 +1689,6 @@ Analyse de l'opacité, exemple 2
 
 \begin_layout Subsection
 Explicabilité
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename imgs/heatmap.png
-	display false
-	width 45col%
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Explication d'un coeur pathologique 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -1732,52 +1898,63 @@ De plus, depuis le début de l'aventure, nous tentons de penser les circuits
 \end_layout
 
 \begin_layout Standard
-Approche pharmacologique en vue d'eviter le besoin de ce truc la
+Finalement Kubrick positionne la boite noire - le monollithe - avant chaque
+ transition.
+ Ces boites noires agissent comme des marqueurs de temps.
 \end_layout
 
-\begin_layout Standard
-Theorisation de la singularité
+\begin_layout Itemize
+Dans le premier cas, nous avons du recul pour comprendre le fonctionnement
+ d'un outil aussi primaire que le baton.
+ Il nous montre notre passé.
+ Il montre aussi que l'homme primitif ne comprennait pas vraiment la mecanique
+ classique.
+ Pour nous l'utilisation de cet outil est tout a fait transparente.
+ Pour le singe c'est une boite noire.
 \end_layout
 
-\begin_layout Standard
-Question de l'accélération de la recherche
+\begin_layout Itemize
+Dans le deuxieme cas, kubrick montre les dangers de designer une AI de facon
+ boite noire.
+ En effet la gestion des erreurs devient impossible (la crisis commence
+ au moment ou les ingenieurs a bord se rendent compte que HAL9000 a commit
+ une erreur.
+ La confiance est perdue.)
 \end_layout
 
-\begin_layout Standard
-the ideal superior man of the future who could rise above conventional Christian
- morality to create and impose his own values, originally described by Nietzsche
- in Thus Spake Zarathustra (1883–85).
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename imgs/ubermensch.png
-	display false
-	width 100col%
-
+\begin_layout Itemize
+Dans le dernier cas, totalement oenirique, kubrick a mon sens théorise la
+ singularité (voir figure ) en empruntant la thématique de l'ubermensch
+ de Nietzche.
+ Nietzche définit l'ubermescnh come l'home supérieur pouvant s'élever en
+ dessus de la morale chrétienne et imposer ses propres valeurs.
+ Il nous met face a un scénario qui dépassent notre entendement cartésien
+ et joue sur nos peur primaires (vieillissement prématuré de l'acteur dans
+ un environnement vicié) - avant d'avoir la renaissance finale.
+ Avec le theme de strauss reprenant le relai.
+ On se retrouve dans un cas typique Kubrick ne compose plus seulement avec
+ la musique et l'image, mais avec le subconscient du récepteur.
+ La renaissance de l'homme en 
+\begin_inset Quotes fld
 \end_inset
 
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-proposition : ubermesch selon kubrick
-\end_layout
-
+star child
+\begin_inset Quotes frd
 \end_inset
 
-
+.
+ La boite noire est la pour nous rapeller que les techniques sont souvent
+ découvertes par hasard.
+ L'homme singe n'a pas attendu la mécanique newtonienne pour se servir du
+ baton - hors c'est celle ci qui va expliquer avec exactitude quelle energie
+ il devra déployer pour l'utiliser précisément.
 \end_layout
 
-\end_inset
-
-
+\begin_layout Standard
+Ce que je propose ici, c'est que la néguanthropie passe avant tout par l'augment
+ation de l'explicabilité de la techné.
+ Cela passe par l'utilisation des circuits longs de la transindividuation
+ inter-domaine.
 \end_layout
 
 \begin_layout Standard
@@ -1812,28 +1989,92 @@ proposition : Singularité selon Kubrick
 \end_layout
 
 \begin_layout Standard
-Softmax
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename imgs/ubermensch.png
+	display false
+	width 100col%
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+proposition : ubermesnch
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Une proposition pharmacologique
 \end_layout
 
 \begin_layout Standard
-Dans le futur, pharmacon dans la loss function TODO translate loss
+Je propose d'utiliser une approche pharmacologique lors de l'apprentissage.
+ Rapellons nous 
 \end_layout
 
 \begin_layout Standard
-Quels sont les risques dans cette pratique? Comment pouvons nous aller encore
- plus loin dans la pratique néguanthropique? 
+\begin_inset Formula 
+\begin{eqnarray*}
+\mbox{\mbox{minimiser}} & J(\boldsymbol{\theta,y,X})=\sum_{i=1}^{N}\lVert y_{i}-f(X_{i};\boldsymbol{\theta}))\rVert_{2}^{2}
+\end{eqnarray*}
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-Qu'est ce que l'explicabilité d'un point de vue apprentissage? 
+Maintenant si nous definissons une fonction d'explicabilitié 
+\begin_inset Formula $E(\theta)$
+\end_inset
+
+ et une fonction d'opacité 
+\begin_inset Formula $O(\theta)$
+\end_inset
+
+, nous pouvons définir une fonction d'erreur pharmakologique 
+\begin_inset Formula $J_{p}$
+\end_inset
+
+:
 \end_layout
 
 \begin_layout Standard
-Socio inspirés, dépasser le bio-inspiré.
+\begin_inset Formula 
+\begin{eqnarray*}
+\mbox{\mbox{minimiser}} & J_{p}(\boldsymbol{\theta},\boldsymbol{y},\boldsymbol{X})=J(\boldsymbol{\theta},\boldsymbol{y},\boldsymbol{X})+\alpha O(\boldsymbol{\theta})-\beta E(\boldsymbol{\theta})
+\end{eqnarray*}
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-Remerciements
+J'aimerais que nous discutions ensemble d'un type d'algorithme que je définis
+ comme socio inspiré.
+ En effet il nous incompe de définir ces fonctions O et E en s'inspirant
+ des sciences de l'éducation et de l'aprentissage et de la pédagogice
+\end_layout
+
+\begin_layout Standard
+Science vs explicabilitié: 
 \end_layout
 
 \begin_layout Standard
