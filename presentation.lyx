@@ -9,6 +9,7 @@
 \usepackage{tikz}
 \newcommand\norm[1]{\left\lVert#1\right\rVert}
 \usepackage[hscale=0.7,vscale=0.8]{geometry}
+\usepackage{algorithm,algpseudocode}
 \end_preamble
 \use_default_options true
 \maintain_unincluded_children false
@@ -77,55 +78,105 @@
 \begin_body
 
 \begin_layout Title
-Néguantropie, opacité et explicabilité des réseaux neuronaux artificiels
+Néguanthropie, opacité et explicabilité des réseaux neuronaux artificiels
  profonds
 \end_layout
 
 \begin_layout Author
-Johan Mathe johmathe@baylabs.io 
+Johan Mathe
+\end_layout
+
+\begin_layout Institution
+johan@baylabs.io - http://github.com/johmathe/enmi - http://proper.ai/enmi.pdf
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FloatList figure
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
 Introduction
 \end_layout
 
+\begin_layout Itemize
+Je commencerai par présenter Bay Labs
+\end_layout
+
+\begin_layout Itemize
+J'introduirai le concept de réseau de neurones a couches profondes.
+ J'expliquerai le concept d'apprentissage et j'introduirai le concept de
+ fonction d'erreur, ainsi que la raison mathématique et intuitive pour laquelle
+ ces modeles sont souvent considérés comme des modeles dits 
+\begin_inset Quotes fld
+\end_inset
+
+boite noire
+\begin_inset Quotes frd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Je continuerai en définissant le concept d'opacité et d'explicabilité, et
+ je vous donnerai des résultats liés a nos travaux de recherche chez Bay
+ Labs
+\end_layout
+
+\begin_layout Itemize
+Enfin en vue d'ouvrir une discussion, je proposerai un axe de recherche
+ qui selon moi peut 
+\series bold
+produire
+\series default
+ de la 
+\series bold
+néguanthropie
+\series default
+ en utilisant les circuits longs de la 
+\series bold
+transindividuation
+\series default
+ entre ingénieurs-chercheurs, professionels du corps médical et je l'espere
+ vous tous.
+\end_layout
+
+\begin_layout Subsection
+2001 l'odyssée de l'espace
+\end_layout
+
+\begin_layout Itemize
+Vu avec un orchestre symphonique : mise en exergue de strauss
+\end_layout
+
+\begin_layout Itemize
+Strauss, ainsi parlait zarathoustra qui nous fait un pont vers l'oeuvre
+ philosophique de Nieztche
+\end_layout
+
+\begin_layout Itemize
+Travail sous la contrainte en utilisant la trame narrative du kubrick comme
+ l'un des supports de cette présentation pour illustrer certains des axes
+ de recherche sur lesquels je me concentre depuis les fondations de Bay
+ Labs.
+\end_layout
+
 \begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename imgs/sf_symphony_kubrick.jpg
-	display false
-	width 100col%
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-SF Symphony et 2001
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Je voudrais commencer par remercier Bernard Stiegler qui m'a demandé d'interveni
-r pendant ce séminaire cet été apres une discussion sur la disruption au
- sein de l'entreprenariat dans la région de San Francisco.
- En tant qu'in génieur, j'ai vu ce projet comme un exercice de création
- d'un objet temporel.
+En tant qu'in génieur, j'ai vu ce projet comme un exercice de création d'un
+ objet temporel.
  Je suis allé voir il y a plus d'un mois maintenant 2001 a space odyssey
  de Kubrick joué par l'orchestre symphonique de San Francisco.
  Ce film a toujours eu une place particuliere dans ma vie, je l'ai vu pour
@@ -141,8 +192,76 @@ r pendant ce séminaire cet été apres une discussion sur la disruption au
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "48text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename imgs/sf_symphony_kubrick.jpg
+	display false
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Orchestre symphonique de San Francisco
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "48text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -154,6 +273,9 @@ status open
 \end_inset
 
 
+\end_layout
+
+\begin_layout Plain Layout
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
@@ -170,18 +292,43 @@ Citation de Kubrick
 
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 Le premier volet du film montre un homme primitif confronté a la découverte
- de la premiere exosommatisation devant un monolithe noir.
+ de la premiere exosomatisation devant un monolithe noir.
  Kubrick fait alors une des ellipses narratives les plus longues de l'histoire.
- On arrive a ce qu'il considerera comme les dernieres exosommatisation:
- la conquete de l'espace et la naissance de l'intelligence artificielle.
+ On arrive a ce qu'il considerera comme les dernieres exosomatisation: la
+ conquete de l'espace et la naissance de l'intelligence artificielle.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "48text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -193,10 +340,13 @@ status open
 \end_inset
 
 
+\end_layout
+
+\begin_layout Plain Layout
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Exosomatisation initiale : l'os
+exosomatisation premiere
 \end_layout
 
 \end_inset
@@ -207,12 +357,26 @@ Exosomatisation initiale : l'os
 \end_inset
 
 
-\end_layout
+\begin_inset space \hfill{}
+\end_inset
 
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "48text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -224,10 +388,18 @@ status open
 \end_inset
 
 
+\end_layout
+
+\begin_layout Plain Layout
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Exosommatisation finale : le vaisseau spatial autonome
+Une des dernieres exosomatisations
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -249,14 +421,60 @@ Baylabs, Inc est une startup qui a pour mission d'améliorer la qualité,
  valeur et l'acces a l'imagerie médicale.
  Le premier produit sur lequel l'équipe travaille est un systeme d'analyse
  cardiaque basé sur l'utilisation de l'ultrason et de l'echocardiographie.
- Nous travaillons a l'interesection de deux technologies : la miniaturisation
- des techniques d'acquisition de données de scans ultrasons ainsi que le
- l'utilisation des réseaux neuronaux profonds.
- Nous travaillons actuellement en partenariat avec cinq universités et centres
- hospitaliers américains : Stanford University, Northwestern University
- a Chicago, Duke University sur la cote est ainsi que Mineapolis Heart Institute.
- Un de nos premiers prototypes permet de faire du diagnostic des signes
- a vant coureur de la fievre rhumatismale.
+ Nous nous positionnons a l'interesection de deux technologies : 
+\end_layout
+
+\begin_layout Itemize
+la miniaturisation des techniques d'acquisition de données de scans ultrasons
+\end_layout
+
+\begin_layout Itemize
+l'utilisation des réseaux neuronaux profonds.
+ 
+\end_layout
+
+\begin_layout Standard
+Nous travaillons actuellement en partenariat avec cinq 
+\series bold
+universités
+\series default
+ et 
+\series bold
+centres hospitaliers
+\series default
+ américains : 
+\end_layout
+
+\begin_layout Itemize
+Stanford University
+\end_layout
+
+\begin_layout Itemize
+Northwestern University a Chicago
+\end_layout
+
+\begin_layout Itemize
+Duke University sur la cote est
+\end_layout
+
+\begin_layout Itemize
+Mineapolis Heart Institute
+\end_layout
+
+\begin_layout Itemize
+UCSF a San Francisco
+\end_layout
+
+\begin_layout Standard
+Un de nos premiers 
+\series bold
+prototypes
+\series default
+ permet de faire du diagnostic des signes a vant coureur de la
+\series bold
+ fievre rhumatismale
+\series default
+.
  La fièvre rhumatismale est une complication des infections de l’enfance
  et de l’adolescence, qui survient à la suite des angines dues au streptocoque
  hémolytique, et qui n’ont pas été soignées par des antibiotiques.
@@ -266,37 +484,7 @@ Baylabs, Inc est une startup qui a pour mission d'améliorer la qualité,
 
 \begin_layout Standard
 \begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename imgs/baylabs_software.jpg
-	display false
-	width 100col%
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-John utilisant le prototype EchoMD
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
@@ -401,6 +589,44 @@ Un coeur atteint de fièvre rhumatismale
 
 \end_layout
 
+\begin_layout Standard
+En aout dernier, je me suis rendu au Kenya pour aider une équipe de cardiologues
+ ou nous sommes intervenus dans 4 écoles des plateaux d'eldoret pour diagnostiqu
+er les coeurs de 1200 adolescents.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename imgs/baylabs_software.jpg
+	display false
+	width 100col%
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+John utilisant le prototype EchoMD
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 Réseaux neuronaux artificiels profonds
 \end_layout
@@ -415,12 +641,16 @@ key "Goodfellow-et-al-2016-Book"
 \end_inset
 
 .
- Le but d'un réseau neuronal est d'approximer une fonction 
+ Le but d'un réseau neuronal est d'approximer une fonction générale 
 \begin_inset Formula $f^{*}$
 \end_inset
 
 .
- Un bon exemple une fonction de classification d'image 
+ 
+\end_layout
+
+\begin_layout Standard
+Un bon exemple une fonction de classification d'image 
 \begin_inset Formula $y=f^{*}(x)$
 \end_inset
 
@@ -448,12 +678,23 @@ f(\boldsymbol{x})=f^{(n)}(\ldots f^{(i)}(\ldots f^{(1)}(\boldsymbol{x})))
 \end_layout
 
 \begin_layout Standard
-Généralement, les fonctions f ont la forme suivante, avec 
+Généralement, les fonctions 
+\begin_inset Formula $f^{i}$
+\end_inset
+
+ ont la forme suivante, avec 
 \begin_inset Formula $\sigma(x)$
 \end_inset
 
  une fonction non linéaire comme par exemple l'unité linéaire rectifié (voir
- figure ):
+ figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:non-linear"
+
+\end_inset
+
+):
 \end_layout
 
 \begin_layout Standard
@@ -477,7 +718,7 @@ Ces structures chainées peuvent etre vues comme un systeme multi couches.
 \begin_inset Formula $f^{(n)}$
 \end_inset
 
-la derniere couche 
+ la derniere couche 
 \begin_inset Formula $n$
 \end_inset
 
@@ -486,7 +727,7 @@ la derniere couche
 profondeur
 \series default
  du réseau.
- Un modele graphique representant un reseau a deux couches:
+ Ci contre un modele graphique representant un reseau a deux couches:
 \end_layout
 
 \begin_layout Standard
@@ -883,7 +1124,7 @@ Un cas d'école de fonction d'erreur est la distance euclidienne, aussi appelée
 \begin_layout Standard
 \begin_inset Formula 
 \[
-l(\hat{y},y)=\Vert\hat{y}-y\Vert_{2}=\sqrt{\frac{1}{n}\sum_{i=1}^{N}(\hat{y_{i}}-y_{i})^{2}}
+l(\hat{y},y)=\Vert\hat{y}-y\Vert_{2}=\sqrt{\frac{1}{n}\sum_{i=1}^{N}(\hat{y_{i}}-y_{i})^{2}}\approx0.43
 \]
 
 \end_inset
@@ -898,9 +1139,9 @@ Dans notre cas cet espace est l'espace des parametres et nous retrouvons
 
 \begin_layout Standard
 \begin_inset Formula 
-\begin{eqnarray*}
-\mbox{\mbox{minimiser}} & J(\boldsymbol{\theta,y,X})=\sum_{i=1}^{N}\lVert y_{i}-f(X_{i};\boldsymbol{\theta}))\rVert_{2}^{2}
-\end{eqnarray*}
+\[
+\underset{\boldsymbol{\theta}}{\text{minimiser }}J(\boldsymbol{\theta,y,X})=\sum_{i=1}^{N}\Vert y_{i}-f(X_{i};\boldsymbol{\theta})\Vert_{2}^{2}
+\]
 
 \end_inset
 
@@ -913,8 +1154,14 @@ La minimisation de cette valeur se fait par l'
 algorithme du gradient
 \series default
  (aussi appelé gradient descent, steepest descent).
- L'idée relativement simple.
- On commence par choisir un point aléatoire 
+\end_layout
+
+\begin_layout Standard
+L'algorithme du gradient est le suivant:
+\end_layout
+
+\begin_layout Itemize
+On commence par choisir un point aléatoire 
 \begin_inset Formula $\boldsymbol{\theta}_{0}$
 \end_inset
 
@@ -932,11 +1179,15 @@ algorithme du gradient
 \end_inset
 
 .
- On fait ensuite une mise a jour de notre paramètre qui devient 
+ 
+\end_layout
+
+\begin_layout Itemize
+On fait ensuite une mise a jour de notre paramètre qui devient 
 \begin_inset Formula $\boldsymbol{\theta}_{1}$
 \end_inset
 
- en lui ajoutant une partie de ce gradient, pondéré par un taux d'apprentissage
+ en lui ajoutant une partie de ce gradient, pondérée par un taux d'apprentissage
  
 \begin_inset Formula $\alpha$
 \end_inset
@@ -947,7 +1198,18 @@ algorithme du gradient
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\boldsymbol{\theta}[k+1]=\boldsymbol{\theta}[k]+\alpha\nabla_{\boldsymbol{\theta}}J(\boldsymbol{\theta,y,X})
+\boldsymbol{\theta}[k+1]=\boldsymbol{\theta}[k]-\alpha\nabla_{\boldsymbol{\theta}}J(\boldsymbol{\theta,y,X})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\alpha>0
 \]
 
 \end_inset
@@ -963,12 +1225,20 @@ reference "algo_illustr"
 
 \end_inset
 
- illustre l'algorithme du gradient pour une fonction convexe quadratique.
+ illustre l'algorithme du gradient pour une fonction quadratique (donc convexe).
  Dans ce cas la le gradient devient simplement la dérivée de la fonction
  en un point.
- Les droites rouges illustrent les tangentes de la droite en chaque point
+ 
+\end_layout
+
+\begin_layout Standard
+Les droites rouges illustrent les tangentes de la droite en chaque point
  et montrent comment l'algorithme évolue.
- Apres quelques itérations on considère un critère d'arrêt comme par exemple
+ 
+\end_layout
+
+\begin_layout Standard
+Apres quelques itérations on considère un critère d'arrêt comme par exemple
  le fait que la valeur du gradient soit proche d'une valeur arbitrairement
  faible 
 \begin_inset Formula $\epsilon$
@@ -979,6 +1249,7 @@ reference "algo_illustr"
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
@@ -1022,7 +1293,7 @@ Convexité
 \begin_layout Standard
 Une des différences notables entre les algorithmes de type réseaux de neurones
  profonds et les méthodes plus anciennes d'apprentissage supervisé comme
- par exemple une SVM 
+ par exemple une Support Vector Machine 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Cortes1995"
@@ -1075,7 +1346,7 @@ reference "eq:convex_fn"
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-f\left(tx+(1-t)y\right)\leq t\,f(x)+(1-t)\,f(y)\label{eq:convex_fn}
+\forall x,y\in\mathbb{R}\quad\forall t\in[0,1]\qquad f\left(tx+(1-t)y\right)\leq t\,f(x)+(1-t)\,f(y)\label{eq:convex_fn}
 \end{equation}
 
 \end_inset
@@ -1087,12 +1358,13 @@ f\left(tx+(1-t)y\right)\leq t\,f(x)+(1-t)\,f(y)\label{eq:convex_fn}
 Une caractéristique principale des fonctions convexes est qu'elle ne possède
  qu'un seul maximum, celui ci étant donc de fait un maximum global.
  Ceci implique donc des garanties importantes quant a la convergence de
- notre fonction d'objectif.
+ notre fonction d'erreur.
  Nous avons la garantie d'obtenir la solution au problème d'optimisation.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
@@ -1212,10 +1484,59 @@ Les réseaux neuronaux profonds étant composés d'une succession d'opérations
  Ceci implique que dans le cas général, les solutions obtenues par des algorithm
 es de la famille des algorithmes du gradient ne nous donnent pas une garantie
  sur l'optimalité et la globalité du résultat trouvé.
+ C'est aussi une des principales raisons pour lesquelles ces modeles sont
+ considérés comme des 
+\begin_inset Quotes fld
+\end_inset
+
+boites noires
+\begin_inset Quotes frd
+\end_inset
+
+.
+ En effet, en théorie des systèmes, une boite noire est une représentation
+ d'un système pour lequel seulement ses entrées et ses sorties sont observables.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename imgs/blackbox.png
+	display false
+	width 70col%
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+La boite noire, aussi apellée black box
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
 Une nouvelle fonction d'erreur : minimisation de l'entropie croisée
+\end_layout
+
+\begin_layout Subsubsection
+Entropie
 \end_layout
 
 \begin_layout Standard
@@ -1228,37 +1549,13 @@ on.
 Les évènements qui sont fortement probable devraient avoir un contenu en
  information faible, et ceux qui sont garantis devraient avoir un contenu
  informationnel proche de zéro.
- Un exemple typique est que le soleil se levera demain.
- Cette phrase a un contenu informationnel faible si l'on connait l'histoire
- des levers et couchers de soleils depuis le début de l'histoire de l'humanité.
-\end_layout
-
-\begin_layout Itemize
-Les évènements peu probables devraient avoir un contenu informationnel élevé.
- Les évemenents independants devraient avoir une information additive.
- Par exemple, se rendre compte que lors d'un lancer de dés est tombé sur
- pile deux fois
-\end_layout
-
-\begin_layout Standard
-Shannon a théorisé dans son papier 
-\series bold
-A Mathematical Theory of Communication 
-\series default
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Shannon:1963:MTC:1102016"
-
-\end_inset
-
-l'entropie comme suit: 
+ 
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
-I(x)=-\log P(x)
+p(x)<p(y)\implies I(p(x))>I(p(y))
 \]
 
 \end_inset
@@ -1266,20 +1563,37 @@ I(x)=-\log P(x)
 
 \end_layout
 
+\begin_layout Itemize
+Les évènements peu probables devraient avoir un contenu informationnel élevé.
+\end_layout
+
 \begin_layout Standard
-Différents types d'entropie:
+\begin_inset Formula 
+\[
+p(x)>p(y)\implies I(p(x))<I(p(y))
+\]
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Itemize
-Entropie de Gibbs
+Si l'on considere deux evenements indépendants, alors la probabilité qu'ils
+ se passent simultanément correspondra au produit de leurs probabilité.
+ Dans ce cas la la quantité d'information de ces deux évenements sera leur
+ quantité d'information respective.
 \end_layout
 
-\begin_layout Itemize
-Entropie de von Neumann
-\end_layout
+\begin_layout Standard
+\begin_inset Formula 
+\[
+I\big(\prod_{i=1}^{N}p(x_{i})\big)=\sum_{i=1}^{N}I(p(x_{i}))
+\]
 
-\begin_layout Subsection
-Entropie Croisée
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1293,14 +1607,94 @@ key "Shannon:1963:MTC:1102016"
 
 \end_inset
 
+.
+ 
+\end_layout
 
+\begin_layout Standard
+La seule formule répondant a tous ces criteres est la suivante:
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
-\begin{equation}
+\[
+I(x)=-\log\big(p(x)\big)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Entropie croisée
+\end_layout
+
+\begin_layout Standard
+L'entropie croisée entre une 
+\begin_inset Quotes fld
+\end_inset
+
+vraie
+\begin_inset Quotes frd
+\end_inset
+
+ distribution 
+\begin_inset Formula $p$
+\end_inset
+
+ et une distribution 
+\begin_inset Formula $q$
+\end_inset
+
+est définie comme:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
 H(p,q)=-\sum_{x}p(x)\log(q(x))
-\end{equation}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Si l'on considere la probabilité de type 
+\begin_inset Quotes fld
+\end_inset
+
+softmax
+\begin_inset Quotes frd
+\end_inset
+
+ comme suit:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+q(x)=\frac{e^{f_{y_{i}}}}{\sum_{j=1}^{N}e^{f_{j}}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+En combinant les deux formes, on obtient une nouvelle fonction d'erreur,
+ que l'on voudra minimiser comme la fonction quadratique.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+p(x)=\delta_{i}(x)
+\]
 
 \end_inset
 
@@ -1309,9 +1703,9 @@ H(p,q)=-\sum_{x}p(x)\log(q(x))
 
 \begin_layout Standard
 \begin_inset Formula 
-\begin{equation}
-H(p,q)=
-\end{equation}
+\[
+\mbox{\underset{\boldsymbol{\theta}}{\text{minimiser }}}l(y,q)=-f_{y_{i}}(\boldsymbol{\theta})+\log\sum_{j=1}^{N}e^{f_{j}(\boldsymbol{\theta})}
+\]
 
 \end_inset
 
@@ -1328,31 +1722,47 @@ Dans 2001 l'odyssée de l'espace, le Kubrick met en scène un monolithe a
 \end_layout
 
 \begin_layout Itemize
-Au début juste avant que le post Neandertal mette en place sa première exosommat
-isation
+Au début juste avant que le l'homme préhistorique développe sa premiere
+ exosomatisation
 \end_layout
 
 \begin_layout Itemize
-Juste avant l'apparition de HAL9000, qui est finalement l'exosommatisation
- ultime
+Juste avant l'apparition de HAL9000, qui s'aparente a la derniere exosomatisatio
+n
 \end_layout
 
 \begin_layout Itemize
-A la fin, pour la transition entre l'homme et l'ubermensch
+A la fin du film, pour la transition entre l'homme et Übermensch
 \end_layout
 
 \begin_layout Standard
-Dans l'oeuvre originale de l'écrivain Arthur C Clarke de qui le film est
- inspiré, le monolithe a une forme de pyramide.
- Kubrick décide de remplacer cette forme pyramidale en forme parallépipedique,
- qui ressemble finalement a une boite noire.
- Quand Kubrick dans les années 60 a fait ses recherches sur les balbutiements
- de l'intelligence artificielle, il a passé du temps avec Minsky au MIT,
- pour essayer de comprendre les tenants et les aboutissants de l'IA.
- En théorie des systèmes, une boite noire est une représentation d'un système
- pour lequel seulement ses entrées et ses sorties sont observables.
+Dans la nouvelle de l'écrivain Arthur C Clarke de qui le film est inspiré,
+ le monolithe a une forme de pyramide.
+ Kubrick décide de remplacer cette forme pyramidale en forme 
+\series bold
+parallépipedique
+\series default
+, qui n'est pas sans finalement rapeller une 
+\series bold
+boite noire
+\series default
+.
  
+\end_layout
+
+\begin_layout Standard
+Quand Kubrick dans les années 60 a fait ses recherches sur les balbutiements
+ de l'intelligence artificielle, il a passé du temps avec 
+\series bold
+Minsky
+\series default
+ au MIT, pour essayer de comprendre les tenants et les aboutissants de l'IA.
+ 
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
@@ -1459,6 +1869,7 @@ Deuxième apparition du Monolithe
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
@@ -1567,21 +1978,31 @@ Monolithe
 Je vais maintenant décrire des travaux qui sont liés a des axes de recherches
  actifs et récents.
  En particulier les problématiques d'explicabilité et d'opacité.
- J'utilise ici la définition suivante de l'opacité d'un réseau de neurones
- artificiel:
+ 
 \end_layout
 
-\begin_layout Standard
-Un réseau de neurone artificiel est dit opaque de par la nature non-convexe
- du problème d'apprentissage, nous n'avons aucune visibilité sur les performance
-s ni sur les critères internes qui font que ce dernier perform (TODO) bien
- ou mal TODO rephrase.
+\begin_layout Subsection
+Définitions
 \end_layout
 
-\begin_layout Standard
-L'explicabilité ici est définie comme une production d'information qui va
- déterminer les critères d'un signal d'entrée qui ont amené le réseau de
- neurones a faire un choix plutôt qu'un autre.
+\begin_layout Itemize
+Un réseau de neurone artificiel est dit 
+\series bold
+opaque
+\series default
+ a cause du manque de visbilité des critères internes qui font que ce dernier
+ fournit une performance donnée.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+L'explicabilité
+\series default
+ ici est définie comme une production d'information qui va déterminer les
+ critères d'un signal d'entrée qui ont amené le réseau de neurones a faire
+ un choix plutôt qu'un autre.
 \end_layout
 
 \begin_layout Subsection
@@ -1597,8 +2018,7 @@ Une des plus grandes problématiques posées aujourd'hui par les réseaux de
 \begin_layout Standard
 Pour diminuer l'opacité de ce type d'algorithmes, nous nous penchons sur
  une technique relativement ancienne, mais qui a été re popularisée récemment
- grâce aux travaux de Erhan et al 2009 TODO Citations.
- Il s'agit simplement de l'opération inverse de l'apprentissage.
+ grâce aux travaux de Erhan et al 2009.
  Nous avons vu que l'apprentissage consistait simplement en une optimisation
  d'une fonction d'objectif visant a minimiser une erreur de prédiction,
  ou encore une entropie croisée entre une distribution attendue et une distribut
@@ -1606,19 +2026,8 @@ ion produite par le réseau de neurones.
 \end_layout
 
 \begin_layout Standard
-Ici nous allons maximiser une activation en considérant la fonction inverse
- de notre réseau de neurones:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-h^{*}(\boldsymbol{X},\boldsymbol{\theta})=f^{*-1}(\boldsymbol{X},\boldsymbol{\theta})
-\]
-
-\end_inset
-
-
+Ici nous allons donc minimiser notre fonction d'erreur, cette fois dans
+ l'espace des pixels de l'image d'entrée et non plus des parametres
 \end_layout
 
 \begin_layout Standard
@@ -1628,7 +2037,7 @@ Nous résolvons donc le problème d'optimisation suivant:
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\boldsymbol{X^{*}}=\mbox{argmax}h(\boldsymbol{\theta},\boldsymbol{X})
+\underset{\boldsymbol{X}}{\text{minimiser }}J(\boldsymbol{\theta,y,X})=\sum_{i=1}^{N}\Vert y_{i}-f(X_{i};\boldsymbol{\theta})\Vert_{2}^{2}
 \]
 
 \end_inset
@@ -1650,6 +2059,7 @@ reference "subsec:L'apprentissage"
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
@@ -1723,7 +2133,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename imgs/opacite1.jpg
+	filename imgs/whitenoise.png
 	display false
 	width 100col%
 
@@ -1736,7 +2146,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Analyse de l'opacité, exemple 1
+Bruit blanc, point initial
 \end_layout
 
 \end_inset
@@ -1783,7 +2193,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Analyse de l'opacité, exemple 2
+Analyse de l'opacité, seed 0
 \end_layout
 
 \end_inset
@@ -1818,7 +2228,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename imgs/whitenoise.png
+	filename imgs/opacite1.jpg
 	display false
 	width 100col%
 
@@ -1831,7 +2241,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Bruit blanc, point initial
+Analyse de l'opacité, seed 1
 \end_layout
 
 \end_inset
@@ -1854,10 +2264,10 @@ Explicabilité
 \end_layout
 
 \begin_layout Standard
-Ici pour l'explicabilité, nous utilisons les approches de zieler et fergus
- TODO citation fergus 2014 qui consiste a observer la classification des
- résultats d'un réseau de neurone déjà entrainé dans le cas ou une image
- aura une zone de taille 
+Ici pour l'explicabilité, nous utilisons les approches de Zieler et Fergus
+ qui consiste a observer la classification des résultats d'un réseau de
+ neurone déjà entrainé dans le cas ou une image aura une zone de taille
+ 
 \begin_inset Formula $(n,n)$
 \end_inset
 
@@ -1869,9 +2279,139 @@ effacée
 \begin_inset Quotes frd
 \end_inset
 
- TODO: image avec patch effacé.
- On déplace ensuite cette image d'un pixel de sorte a créer une heatmap
- (TODO: translate)
+ .
+ On déplace ensuite cette image d'un pixel de sorte a créer une heatmap.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic}[1]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+For{$h 
+\backslash
+in 1:
+\backslash
+mbox{height} $}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+For{$w 
+\backslash
+in 1:
+\backslash
+mbox{weight} $}
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\backslash
+State $
+\backslash
+mbox{image} 
+\backslash
+gets 
+\backslash
+mbox{original}$
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\backslash
+State $
+\backslash
+mbox{image}[h:h+patch
+\backslash
+_size, w:w+patch
+\backslash
+_size] 
+\backslash
+gets 0$
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\backslash
+State $
+\backslash
+mbox{heatmap}[h, w] 
+\backslash
+gets 
+\backslash
+mbox{network.forward}(
+\backslash
+mbox{image})[
+\backslash
+mbox{class}]$
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Heatmap generation
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1962,7 +2502,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Analyse de l'opacité, exemple 1
+Heatmap
 \end_layout
 
 \end_inset
@@ -2009,7 +2549,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Analyse de l'opacité, exemple 2
+Heatmap et image originale
 \end_layout
 
 \end_inset
@@ -2057,7 +2597,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Analyse de l'opacité, exemple 1
+Image et patch
 \end_layout
 
 \end_inset
@@ -2075,106 +2615,300 @@ Analyse de l'opacité, exemple 1
 
 \end_layout
 
-\begin_layout Standard
-Faux positifs, qu'est ce qu'on extrait de ces images?
+\begin_layout Itemize
+On remarque que la plupart des zones qui sont mises en exergues sont celles
+ qui sont significatives d'un état avancé de fievre rhumatique
+\end_layout
+
+\begin_layout Itemize
+Apres discussion avec nos partenaires, il s'avere que le grossissement du
+ ventricule gauche est une caractéristique principale de la fievre rhumatique,
+ mais seulement dans les cas avancés.
+ 
+\end_layout
+
+\begin_layout Itemize
+Ceci nous a permis de comprendre que si nous voulions classifier des cas
+ de fievre naissants, nous devions pousser l'algorithme a se concentrer
+ sur d'autres criteres morphologiques, comme la valve mitrale par exemple.
 \end_layout
 
 \begin_layout Section
-Néguantropie, prolétarisation, circuits longs de la transindividuation
+Néguanthropie, prolétarisation, circuits longs de la transindividuation
+\end_layout
+
+\begin_layout Subsection
+Circuits longs de la transindividuation
 \end_layout
 
 \begin_layout Standard
 Une des motivations pour ce travail de recherche et développement autour
  de l'explicabilité et de l'opacité au sein de Bay Labs vient de plusieurs
  discussions avec les professionnels du corps médical.
- Quand nous avons commencé a travailler avec les cardiologues sur ces questions
+ 
+\end_layout
+
+\begin_layout Standard
+Quand nous avons commencé a travailler avec les cardiologues sur ces questions
  d'apprentissage et de réseaux neuronaux, un de leur retours principaux
- était la question de la prolétarisation.
- En effet en tant que chercheurs, ingénieurs et entrepreneurs, nous fournissons
- un outil aux médecins en vue de produire un diagnostic.
- Il est critique que le médecin qui a la responsabilité finale du diagnostic
- comprenne pourquoi l'outil fournit tel ou tel diagnostique.
-\end_layout
-
-\begin_layout Standard
-De plus, depuis le début de l'aventure, nous tentons de penser les circuits
- longs de la transindividuation entre le corps médical et notre équipe de
- recherche.
- C'est a mon sens l'utilisation continue de ces boucles de renforcement
- entre les médecins qui peuvent plus que jamais utiliser leur esprit critique.
- En effet si nous conservons la trace des évemenents bugs on peut faire
- bien.
- Aussi nous avons remarqué que dans certains cas eg afrique et biais
-\end_layout
-
-\begin_layout Standard
-Finalement Kubrick positionne la boite noire - le monolithe - avant chaque
- transition.
- Ces boites noires agissent comme des marqueurs de temps.
-\end_layout
-
-\begin_layout Itemize
-Dans le premier cas, nous avons du recul pour comprendre le fonctionnement
- d'un outil aussi primaire que le bâton.
- Il nous montre notre passé.
- Il montre aussi que l'homme primitif ne comprenait pas vraiment la mécanique
- classique.
- Pour nous l'utilisation de cet outil est tout a fait transparente.
- Pour le singe c'est une boite noire.
-\end_layout
-
-\begin_layout Itemize
-Dans le deuxième cas, Kubrick montre les dangers de designer une AI de façon
- boite noire.
- En effet la gestion des erreurs devient impossible (la crisis commence
- au moment ou les ingénieurs a bord se rendent compte que HAL9000 a commit
- une erreur.
- La confiance est perdue.)
-\end_layout
-
-\begin_layout Itemize
-Dans le dernier cas, totalement onirique, Kubrick a mon sens théorise la
- singularité (voir figure ) en empruntant la thématique de l'ubermensch
- de Nietzsche.
- Nietzsche définit l'ubermescnh come l'home supérieur pouvant s'élever en
- dessus de la morale chrétienne et imposer ses propres valeurs.
- Il nous met face a un scénario qui dépassent notre entendement cartésien
- et joue sur nos peur primaires (vieillissement prématuré de l'acteur dans
- un environnement vicié) - avant d'avoir la renaissance finale.
- Avec le thème de Strauss reprenant le relai.
- On se retrouve dans un cas typique Kubrick ne compose plus seulement avec
- la musique et l'image, mais avec le subconscient du récepteur.
- La renaissance de l'homme en 
-\begin_inset Quotes fld
-\end_inset
-
-star child
-\begin_inset Quotes frd
-\end_inset
-
+ était la question de la 
+\series bold
+prolétarisation
+\series default
 .
- La boite noire est la pour nous rappeler que les techniques sont souvent
- découvertes par hasard.
- L'homme singe n'a pas attendu la mécanique newtonienne pour se servir du
- bâton - hors c'est celle ci qui va expliquer avec exactitude quelle énergie
- il devra déployer pour l'utiliser précisément.
+ En effet en tant que chercheurs, ingénieurs et entrepreneurs, nous fournissons
+ un outil aux médecins en vue de produire un 
+\series bold
+diagnostic
+\series default
+.
+ Il est critique que le médecin qui a la 
+\series bold
+responsabilité
+\series default
+ finale du diagnostic comprenne 
+\series bold
+pourquoi
+\series default
+ l'outil fournit tel ou tel diagnostique.
 \end_layout
 
 \begin_layout Standard
-Ce que je propose ici, c'est que la néguanthropie passe avant tout par l'augment
-ation de l'explicabilité de la techné.
- Cela passe par l'utilisation des circuits longs de la transindividuation
- inter-domaine.
+De plus, depuis le début de l'aventure, nous tentons de penser les 
+\series bold
+circuits longs de la transindividuation
+\series default
+ entre le corps médical et notre équipe de recherche.
+ 
+\end_layout
+
+\begin_layout Standard
+C'est a mon sens l'utilisation continue de ces boucles de renforcement entre
+ les médecins qui peuvent plus que jamais utiliser leur esprit critique.
+ 
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
 
 \begin_layout Plain Layout
 \align center
+\begin_inset Graphics
+	filename imgs/circuits.png
+	display false
+	width 100col%
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "algo_illustr-1"
+
+\end_inset
+
+Circuit transindividuel a Bay Labs
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Dans 2001
+\end_layout
+
+\begin_layout Standard
+Mon interpretation des apparitions de la boite noire - monolithes dans 2001
+ est la suivante:
+\end_layout
+
+\begin_layout Itemize
+premier cas, nous avons du recul pour comprendre le fonctionnement d'un
+ outil aussi primaire que le bâton, recul que l'homme préhistorique ne possede
+ pas.
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Il nous montre notre passé.
+\end_layout
+
+\begin_layout Itemize
+Il montre aussi que bien que l'homme préhistorique ne comprenait pas la
+ 
+\series bold
+mécanique classique
+\series default
+, cela ne l'empechait pas d'utiliser cet outil.
+ Pour cet homme, l'os a un fonctionnement de type boite noire.
+ De mon point de vue la mecanique classique est mise en avant lorsque le
+ baton est lancé en l'air.
+\end_layout
+
+\begin_layout Itemize
+Pour nous l'utilisation de cet outil est tout a fait transparente.
+ Pour le singe c'est une boite noire.
+ L'homme singe n'a pas attendu la mécanique newtonienne pour se servir du
+ bâton - hors c'est celle ci qui va expliquer avec exactitude quelle énergie
+ il devra déployer pour l'utiliser précisément.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Dans le deuxième cas, Kubrick montre les dangers de construire une AI de
+ façon boite noire qui fasse des 
+\series bold
+erreurs de diagnostic
+\series default
+.
+ L'erreur de diagnostic peut etre fatale dans l'espace, tout comme elle
+ peut etre fatale en médecine.
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+En effet la gestion des erreurs devient impossible (la crisis commence au
+ moment ou les ingénieurs a bord se rendent compte que HAL9000 a commit
+ une erreur).
+ La confiance en l'IA est perdue, et le seul recours possible est la destruction.
+\end_layout
+
+\begin_layout Itemize
+A aucun moment on nous explique le type d'IA sur lequel est construit HAL9000.
+ Kubrick aurait tres bien pu s'aventurer dans des détails après son passage
+ au MIT
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Dans le dernier cas Kubrick a mon sens théorise la singularité (voir figure
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Singularité-vue-par"
+
+\end_inset
+
+) en empruntant la thématique de l'Übermensch de Nietzsche.
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+« Le Surhomme de Nietzsche est de nature égale au divin.
+ Il est au-dessus des hommes et plus haut des hommes que ceux-ci le sont
+ du singe.
+ Il ne doit pas se soucier des hommes, ni les gouverner : sa seule tâche
+ est la transfiguration de l'existence.
+ »
+\end_layout
+
+\begin_layout Itemize
+Il nous met face a un scénario qui dépassent notre entendement et joue sur
+ nos 
+\series bold
+insécurités primaires
+\series default
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+vieillissement prématuré de l'acteur
+\end_layout
+
+\begin_layout Itemize
+environnement vicié
+\end_layout
+
+\begin_layout Itemize
+incompréhension de l'action car le StarChild voyage plusieurs millions de
+ km en une fraction de seconde
+\end_layout
+
+\begin_layout Itemize
+mise du spectateur a la place de l'acteur lors de la transformation en StarChild
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+avant d'avoir la renaissance finale.
+ Avec le thème de Strauss reprenant le relai.
+ On se retrouve dans un cas ou Kubrick ne compose plus seulement avec la
+ musique et l'image, mais objectivement avec les insécurités du spectateur.
+ La renaissance de l'homme en 
+\begin_inset Quotes fld
+\end_inset
+
+StarChild
+\begin_inset Quotes frd
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+La boite noire ici est l'objet du cinéma.
+ Elle provoque des interrogations et va jusqu'a nous mettre mal a l'aise.
+ La logique cartésienne en l'état de nos connaissances ne nous permet pas
+ de comprendre comment le cinéaste manipule nos insécurités.
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Standard
+
+\series bold
+Ce que je propose ici, c'est que l'augmentation de la néguanthropie passe
+ avant tout par l'augmentation de l'explicabilité et la diminution de l'opacité
+ des exosomatisations.
+ Cela passe par le renforcement des circuits longs de la transindividuation
+ inter-domaine.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "48text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
 \begin_inset Graphics
 	filename imgs/singularity.png
 	display false
@@ -2183,11 +2917,16 @@ status open
 \end_inset
 
 
+\end_layout
+
+\begin_layout Plain Layout
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-proposition : Singularité selon Kubrick
-\end_layout
+Singularité vue par Kubrick
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Singularité-vue-par"
 
 \end_inset
 
@@ -2199,14 +2938,32 @@ proposition : Singularité selon Kubrick
 
 \end_layout
 
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "48text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
-\align center
 \begin_inset Graphics
 	filename imgs/ubermensch.png
 	display false
@@ -2215,10 +2972,18 @@ status open
 \end_inset
 
 
+\end_layout
+
+\begin_layout Plain Layout
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-proposition : ubermesnch
+Übermensch, StarChild
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -2236,14 +3001,15 @@ Une proposition pharmakologique
 \end_layout
 
 \begin_layout Standard
-Je propose d'utiliser une approche pharmakologique lors de l'apprentissage.
+Je propose d'utiliser une approche pharmakologique lors de l'apprentissage
+ supervisé.
  Rapellons nous un exemple de fonction d'erreur:
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \begin{eqnarray*}
-\mbox{\mbox{minimiser}} & J(\boldsymbol{\theta,y,X})=\sum_{i=1}^{N}\lVert y_{i}-f(X_{i};\boldsymbol{\theta}))\rVert_{2}^{2}
+\underset{\boldsymbol{X}}{\text{minimiser}} & J(\boldsymbol{X},\boldsymbol{\theta})=\lVert\delta_{l}-f(\boldsymbol{\theta},\boldsymbol{X})\rVert_{2}^{2}
 \end{eqnarray*}
 
 \end_inset
@@ -2311,21 +3077,26 @@ J'aimerais que nous discutions ensemble d'un type d'algorithme que je définis
 \begin_inset Formula $E(\theta)$
 \end_inset
 
- en s'inspirant des sciences de l'éducation et de l'apprentissage et de
- la pédagogie.
+ en s'inspirant 
+\end_layout
+
+\begin_layout Itemize
+de vos expertises respectives
+\end_layout
+
+\begin_layout Itemize
+en particulier des sciences de l'éducation, de l'apprentissage et de la
+ pédagogie
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \begin{eqnarray*}
- & \begin{bmatrix}-I_{3\times3}\\
-I_{3\times3}
-\end{bmatrix}\boldsymbol{x}\le\begin{bmatrix}\boldsymbol{0}_{3\times1}\\
-1^{3}\\
-2^{3}\\
-3^{3}
-\end{bmatrix}^{T}\\
- & \boldsymbol{x}\in\mathbb{R}^{3}
+ & \boldsymbol{x}\le\begin{bmatrix}1^{2}\\
+2^{2}\\
+3^{2}
+\end{bmatrix}\\
+ & \boldsymbol{x}\in\mathbb{R}_{+}^{3}
 \end{eqnarray*}
 
 \end_inset
