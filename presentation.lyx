@@ -78,8 +78,7 @@
 \begin_body
 
 \begin_layout Title
-Néguanthropie, opacité et explicabilité des réseaux neuronaux artificiels
- profonds
+Opacity and Explicability of Deep Neural Networks
 \end_layout
 
 \begin_layout Author
@@ -817,7 +816,7 @@ y in {1,...,4}
 
  
 \backslash
-node[input neuron, pin=left:Entrée 
+node[input neuron, pin=left:Input 
 \backslash
 #
 \backslash
@@ -931,7 +930,7 @@ dest);
 
  
 \backslash
-node[output neuron,pin={[pin edge={->}]right:Sortie}, right of=H2-3] (O)
+node[output neuron,pin={[pin edge={->}]right:Output}, right of=H2-3] (O)
  {};
 \end_layout
 
@@ -991,7 +990,7 @@ source) edge (O);
 
  
 \backslash
-node[annot,above of=H2-1, node distance=1cm] (hl) {Couche cachée~2 $f^{(2)}$};
+node[annot,above of=H2-1, node distance=1cm] (hl) {Hidden Layer~2 $f^{(2)}$};
    
 \end_layout
 
@@ -999,7 +998,7 @@ node[annot,above of=H2-1, node distance=1cm] (hl) {Couche cachée~2 $f^{(2)}$};
 
  
 \backslash
-node[annot,above of=H1-1, node distance=1cm] (hl) {Couche cachée~1 $f^{(1)}$};
+node[annot,above of=H1-1, node distance=1cm] (hl) {Hidden Layer~1 $f^{(1)}$};
    
 \end_layout
 
@@ -1007,14 +1006,14 @@ node[annot,above of=H1-1, node distance=1cm] (hl) {Couche cachée~1 $f^{(1)}$};
 
  
 \backslash
-node[annot,left of=hl] {Couche d'entrée};  
+node[annot,left of=hl] {Input Layer};  
 \end_layout
 
 \begin_layout Plain Layout
 
  
 \backslash
-node[annot,right of=H2-1] {Couche de sortie}; 
+node[annot,right of=H2-1] {Output Layer}; 
 \end_layout
 
 \begin_layout Plain Layout
@@ -2686,45 +2685,6 @@ circuits longs de la transindividuation
 C'est a mon sens l'utilisation continue de ces boucles de renforcement entre
  les médecins qui peuvent plus que jamais utiliser leur esprit critique.
  
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement H
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename imgs/circuits.png
-	display false
-	width 100col%
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "algo_illustr-1"
-
-\end_inset
-
-Circuit transindividuel a Bay Labs
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Subsection
